@@ -1,0 +1,72 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+import Flower from "../components/Flower.astro";
+import EmptyState from "../components/EmptyState.astro";
+import { getAuthor } from "../lib/sanity";
+
+const author = await getAuthor();
+---
+
+<Layout title="Контакти" description="Свържете се с Петя в Instagram и Facebook.">
+  <Nav />
+
+  <main class="flex min-h-[70vh] items-center">
+    <section class="mx-auto max-w-xl px-6 py-24 text-center">
+      <Flower variant="bloom" class="mx-auto mb-4 w-16 text-accent/40" />
+      <p class="reveal mb-3 font-serif text-sm uppercase tracking-widest text-accent">
+        Контакти
+      </p>
+      <h1 class="reveal reveal-d1 mb-6 font-display text-4xl leading-tight text-ink md:text-5xl">
+        Да се свържем
+      </h1>
+
+      {
+        author ? (
+          <>
+            <p class="reveal reveal-d2 mb-12 text-lg leading-relaxed text-ink/75">
+              За сътрудничество, интервюта или просто да споделите какво почувствахте — можете
+              да намерите {author.name} тук.
+            </p>
+
+            <div class="reveal reveal-d3 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+              {author.instagramUrl && (
+                <a
+                  href={author.instagramUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="group flex w-full items-center justify-center gap-3 rounded-sm border border-ink/15 px-8 py-4 font-serif text-sm tracking-wide text-ink transition-colors hover:border-accent hover:bg-accent hover:text-paper sm:w-auto"
+                >
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                    <rect x="3" y="3" width="18" height="18" rx="5" />
+                    <circle cx="12" cy="12" r="4" />
+                    <circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none" />
+                  </svg>
+                  Instagram
+                </a>
+              )}
+              {author.facebookUrl && (
+                <a
+                  href={author.facebookUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="group flex w-full items-center justify-center gap-3 rounded-sm border border-ink/15 px-8 py-4 font-serif text-sm tracking-wide text-ink transition-colors hover:border-accent hover:bg-accent hover:text-paper sm:w-auto"
+                >
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M13.5 21v-8.2h2.75l.41-3.2h-3.16V7.4c0-.93.26-1.56 1.6-1.56h1.7V2.98A22.7 22.7 0 0 0 14.3 2.8c-2.63 0-4.43 1.6-4.43 4.55v2.25H7.1v3.2h2.77V21h3.63Z" />
+                  </svg>
+                  Facebook
+                </a>
+              )}
+            </div>
+          </>
+        ) : (
+          <EmptyState message="Връзките за контакт предстои да бъдат добавени в Sanity Studio." />
+        )
+      }
+    </section>
+  </main>
+
+  <Footer />
+</Layout>

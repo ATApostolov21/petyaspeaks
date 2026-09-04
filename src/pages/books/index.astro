@@ -1,0 +1,44 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Nav from "../../components/Nav.astro";
+import Footer from "../../components/Footer.astro";
+import BookCard from "../../components/BookCard.astro";
+import Flower from "../../components/Flower.astro";
+import EmptyState from "../../components/EmptyState.astro";
+import { getBooks } from "../../lib/sanity";
+
+const books = await getBooks();
+---
+
+<Layout title="Книги" description="Книгите на Петя.">
+  <Nav />
+
+  <main>
+    <section class="relative mx-auto max-w-5xl px-6 pb-8 pt-16 text-center md:pt-24">
+      <Flower
+        variant="bloom"
+        class="absolute left-1/2 top-0 hidden w-72 -translate-x-1/2 text-ink/8 md:block"
+      />
+      <p class="reveal mb-3 font-serif text-sm uppercase tracking-widest text-accent">
+        Библиография
+      </p>
+      <h1 class="reveal reveal-d1 font-display text-4xl leading-tight text-ink md:text-5xl">
+        Книги
+      </h1>
+    </section>
+
+    <section class="mx-auto max-w-5xl px-6 py-16">
+      {
+        books.length > 0 ? (
+          <div class="grid gap-x-10 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
+            {books.map((book) => <BookCard book={book} />)}
+          </div>
+        ) : (
+          <EmptyState />
+        )
+      }
+    </section>
+  </main>
+
+  <Footer />
+</Layout>

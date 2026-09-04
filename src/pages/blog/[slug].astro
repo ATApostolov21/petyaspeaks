@@ -1,0 +1,60 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Nav from "../../components/Nav.astro";
+import Footer from "../../components/Footer.astro";
+import Flower from "../../components/Flower.astro";
+import PortableText from "../../components/PortableText.astro";
+import { getPosts, categoryLabels, formatDate, readingTime } from "../../lib/sanity";
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+---
+
+<Layout title={post.title} description={post.excerpt}>
+  <Nav />
+
+  <main>
+    <article class="mx-auto max-w-2xl px-6 pb-24 pt-16 md:pt-24">
+      <a
+        href="/blog"
+        class="reveal mb-10 inline-flex items-center gap-1.5 font-serif text-sm text-ink/60 transition-colors hover:text-accent"
+      >
+        ← Всички публикации
+      </a>
+
+      <header class="reveal reveal-d1 mb-10 text-center">
+        <p class="mb-3 font-serif text-xs uppercase tracking-widest text-accent">
+          {categoryLabels[post.category]} · {formatDate(post.publishedAt)} · {readingTime(post.body)} мин.
+          четене
+        </p>
+        <h1 class="font-display text-3xl leading-tight text-ink md:text-4xl">
+          {post.title}
+        </h1>
+      </header>
+
+      <PortableText value={post.body} class="reveal text-lg leading-relaxed text-ink/85" />
+
+      <div class="mt-16 flex justify-center">
+        <Flower variant="bloom" class="w-16 text-accent/40" />
+      </div>
+
+      <div class="reveal mt-6 border-t border-ink/10 pt-8 text-center">
+        <a
+          href="/blog"
+          class="inline-flex items-center gap-1.5 font-serif text-sm text-ink/60 transition-colors hover:text-accent"
+        >
+          ← Обратно към блога
+        </a>
+      </div>
+    </article>
+  </main>
+
+  <Footer />
+</Layout>

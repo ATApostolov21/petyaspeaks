@@ -1,0 +1,28 @@
+---
+import type { Book } from "../lib/sanity";
+import SanityImage from "./SanityImage.astro";
+
+interface Props {
+  book: Book;
+}
+
+const { book } = Astro.props;
+---
+
+<article class="reveal group">
+  <a href={`/books/${book.slug}`} class="block">
+    <div class="mb-5 aspect-[3/4] w-full overflow-hidden rounded-sm bg-muted shadow-sm">
+      <SanityImage image={book.coverImage} alt={book.title} width={480} />
+    </div>
+    <h3 class="mb-1.5 font-display text-xl text-ink transition-colors group-hover:text-accent">
+      {book.title}
+    </h3>
+    <p class="mb-3 leading-relaxed text-ink/70">{book.description}</p>
+    <span
+      class="inline-flex items-center gap-1.5 text-sm text-ink/50 transition-colors group-hover:text-accent"
+    >
+      Разгледай
+      <span class="transition-transform duration-300 group-hover:translate-x-1">→</span>
+    </span>
+  </a>
+</article>

@@ -1,0 +1,30 @@
+---
+import { categoryLabels, formatDate, type Post } from "../lib/sanity";
+
+interface Props {
+  post: Post;
+  class?: string;
+}
+
+const { post, class: className = "" } = Astro.props;
+---
+
+<article class:list={["group reveal", className]}>
+  <a href={`/blog/${post.slug}`} class="block">
+    <p class="mb-2 font-serif text-xs uppercase tracking-widest text-accent">
+      {categoryLabels[post.category]} · {formatDate(post.publishedAt)}
+    </p>
+    <h3
+      class="mb-2 font-display text-xl text-ink transition-colors group-hover:text-accent"
+    >
+      {post.title}
+    </h3>
+    <p class="mb-3 leading-relaxed text-ink/70">{post.excerpt}</p>
+    <span
+      class="inline-flex items-center gap-1.5 text-sm text-ink/50 transition-colors group-hover:text-accent"
+    >
+      Прочети
+      <span class="transition-transform duration-300 group-hover:translate-x-1">→</span>
+    </span>
+  </a>
+</article>

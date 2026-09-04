@@ -1,0 +1,162 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+import Divider from "../components/Divider.astro";
+import Flower from "../components/Flower.astro";
+import PostCard from "../components/PostCard.astro";
+import SanityImage from "../components/SanityImage.astro";
+import { getAuthor, getBooks, getPosts, getPress } from "../lib/sanity";
+
+const [author, books, posts, press] = await Promise.all([
+  getAuthor(),
+  getBooks(),
+  getPosts(),
+  getPress(),
+]);
+
+const book = books[0];
+const latestPosts = posts.slice(0, 3);
+---
+
+<Layout title="Начало">
+  <Nav />
+
+  <main>
+    {
+      book && (
+        <>
+          <!-- Hero: The Book -->
+          <section class="relative mx-auto max-w-5xl px-6 pb-20 pt-16 md:pt-24">
+            <Flower
+              variant="bloom"
+              class="absolute -right-8 -top-10 hidden w-56 text-accent/15 lg:block"
+            />
+            <div class="grid items-center gap-12 md:grid-cols-2 md:gap-16">
+              <div class="reveal order-2 md:order-1">
+                <p class="mb-3 font-serif text-sm uppercase tracking-widest text-accent">
+                  Нова книга
+                </p>
+                <h1 class="mb-5 font-display text-4xl leading-tight text-ink md:text-5xl">
+                  {book.title}
+                </h1>
+                <p class="mb-8 text-lg leading-relaxed text-ink/80">{book.description}</p>
+                <div class="flex flex-wrap gap-4">
+                  <a
+                    href={book.purchaseUrl || "#"}
+                    class="inline-block rounded-sm bg-accent px-7 py-3 font-serif text-sm tracking-wide text-paper transition-colors hover:bg-accent-hover"
+                  >
+                    Поръчай книгата
+                  </a>
+                  <a
+                    href={`/books/${book.slug}`}
+                    class="inline-flex items-center gap-1.5 px-1 py-3 font-serif text-sm tracking-wide text-ink/70 transition-colors hover:text-accent"
+                  >
+                    Прочети откъс <span>→</span>
+                  </a>
+                </div>
+              </div>
+              <div class="reveal reveal-d1 order-1 md:order-2">
+                <div class="group aspect-[3/4] w-full max-w-sm overflow-hidden rounded-sm bg-muted shadow-md mx-auto md:mx-0">
+                  <SanityImage image={book.coverImage} alt={book.title} width={640} />
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <Divider />
+        </>
+      )
+    }
+
+    {
+      author && (
+        <section class="relative overflow-hidden bg-muted/60">
+          <Flower
+            variant="sprig"
+            class="absolute -left-4 bottom-0 hidden w-24 text-ink/20 md:block"
+          />
+          <div class="mx-auto max-w-5xl px-6 py-20">
+            <div class="grid items-center gap-12 md:grid-cols-2 md:gap-16">
+              <div class="reveal order-2 mx-auto w-full max-w-sm md:order-1 md:mx-0">
+                <div class="group aspect-square w-full overflow-hidden rounded-full bg-muted shadow-sm ring-1 ring-ink/5">
+                  <SanityImage image={author.profileImage} alt={author.name} width={480} />
+                </div>
+              </div>
+              <div class="reveal reveal-d1 order-1 md:order-2">
+                <blockquote>
+                  <p class="font-display text-2xl italic leading-relaxed text-ink md:text-3xl">
+                    "{author.tagline}"
+                  </p>
+                  <footer class="mt-4 font-serif text-sm text-ink/60">— {author.name}</footer>
+                </blockquote>
+                <a
+                  href="/about"
+                  class="mt-6 inline-flex items-center gap-1.5 font-serif text-sm text-accent transition-colors hover:text-accent-hover"
+                >
+                  Повече за авторката <span>→</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+      )
+    }
+
+    {
+      latestPosts.length > 0 && (
+        <section class="mx-auto max-w-5xl px-6 py-20">
+          <div class="reveal mb-10 flex items-end justify-between">
+            <h2 class="font-display text-2xl text-ink md:text-3xl">От блога</h2>
+            <a
+              href="/blog"
+              class="hidden font-serif text-sm text-ink/60 transition-colors hover:text-accent sm:inline-flex sm:items-center sm:gap-1.5"
+            >
+              Всички публикации <span>→</span>
+            </a>
+          </div>
+          <div class="grid gap-x-10 gap-y-12 md:grid-cols-3">
+            {latestPosts.map((post, i) => (
+              <PostCard post={post} class={`reveal-d${Math.min(i + 1, 3)}`} />
+            ))}
+          </div>
+          <a
+            href="/blog"
+            class="mt-10 inline-flex items-center gap-1.5 font-serif text-sm text-ink/60 transition-colors hover:text-accent sm:hidden"
+          >
+            Всички публикации <span>→</span>
+          </a>
+        </section>
+      )
+    }
+
+    {
+      press.length > 0 && (
+        <section class="border-t border-ink/10">
+          <div class="reveal mx-auto max-w-5xl px-6 py-14 text-center">
+            <p class="mb-6 font-serif text-xs uppercase tracking-widest text-ink/40">
+              Публикации за творчеството
+            </p>
+            <div class="flex flex-wrap items-center justify-center gap-x-10 gap-y-3">
+              {press.map((item) => (
+                <span class="font-display text-lg text-ink/50">{item.mediaName}</span>
+              ))}
+            </div>
+          </div>
+        </section>
+      )
+    }
+
+    {
+      !book && !author && latestPosts.length === 0 && (
+        <div class="mx-auto max-w-5xl px-6 py-24 text-center">
+          <p class="font-display text-2xl italic text-ink/60">
+            Съдържанието предстои — скоро тук ще намерите книгата, историята и думите на Петя.
+          </p>
+        </div>
+      )
+    }
+  </main>
+
+  <Footer />
+</Layout>

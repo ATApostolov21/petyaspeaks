@@ -1,0 +1,95 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Nav from "../../components/Nav.astro";
+import Footer from "../../components/Footer.astro";
+import Flower from "../../components/Flower.astro";
+import PostCard from "../../components/PostCard.astro";
+import EmptyState from "../../components/EmptyState.astro";
+import { getPosts } from "../../lib/sanity";
+
+const posts = await getPosts();
+---
+
+<Layout title="Блог" description="Поезия, есета и разкази.">
+  <Nav />
+
+  <main>
+    <section class="relative mx-auto max-w-5xl px-6 pb-8 pt-16 text-center md:pt-24">
+      <Flower
+        variant="branch"
+        class="absolute -right-6 top-2 hidden w-52 text-ink/10 lg:block"
+      />
+      <p class="reveal mb-3 font-serif text-sm uppercase tracking-widest text-accent">Блог</p>
+      <h1 class="reveal reveal-d1 font-display text-4xl leading-tight text-ink md:text-5xl">
+        Поезия, есета и разкази
+      </h1>
+    </section>
+
+    {
+      posts.length > 0 ? (
+        <section class="filter-group mx-auto max-w-5xl px-6 py-16">
+          <input type="radio" name="filter" id="f-all" class="peer/all sr-only" checked />
+          <input type="radio" name="filter" id="f-poem" class="peer/poem sr-only" />
+          <input type="radio" name="filter" id="f-essay" class="peer/essay sr-only" />
+          <input type="radio" name="filter" id="f-story" class="peer/story sr-only" />
+
+          <div class="reveal mb-12 flex flex-wrap justify-center gap-3">
+            <label
+              for="f-all"
+              class="tab-label cursor-pointer rounded-full border border-ink/15 px-5 py-2 font-serif text-sm text-ink/70 transition-colors hover:border-accent hover:text-accent"
+            >
+              Всички
+            </label>
+            <label
+              for="f-poem"
+              class="tab-label cursor-pointer rounded-full border border-ink/15 px-5 py-2 font-serif text-sm text-ink/70 transition-colors hover:border-accent hover:text-accent"
+            >
+              Поезия
+            </label>
+            <label
+              for="f-essay"
+              class="tab-label cursor-pointer rounded-full border border-ink/15 px-5 py-2 font-serif text-sm text-ink/70 transition-colors hover:border-accent hover:text-accent"
+            >
+              Есета
+            </label>
+            <label
+              for="f-story"
+              class="tab-label cursor-pointer rounded-full border border-ink/15 px-5 py-2 font-serif text-sm text-ink/70 transition-colors hover:border-accent hover:text-accent"
+            >
+              Разкази
+            </label>
+          </div>
+
+          <div class="posts-grid grid gap-x-10 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+            {posts.map((post, i) => (
+              <div data-category={post.category}>
+                <PostCard post={post} class={`reveal-d${Math.min((i % 3) + 1, 3)}`} />
+              </div>
+            ))}
+          </div>
+        </section>
+      ) : (
+        <EmptyState />
+      )
+    }
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .filter-group:has(#f-poem:checked) .posts-grid > [data-category]:not([data-category="poem"]),
+  .filter-group:has(#f-essay:checked) .posts-grid > [data-category]:not([data-category="essay"]),
+  .filter-group:has(#f-story:checked) .posts-grid > [data-category]:not([data-category="story"]) {
+    display: none;
+  }
+
+  .filter-group:has(#f-all:checked) label[for="f-all"],
+  .filter-group:has(#f-poem:checked) label[for="f-poem"],
+  .filter-group:has(#f-essay:checked) label[for="f-essay"],
+  .filter-group:has(#f-story:checked) label[for="f-story"] {
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
+    color: var(--color-paper);
+  }
+</style>

@@ -1,0 +1,33 @@
+---
+import { urlFor } from "../lib/sanity";
+import type { SanityImage as SanityImageType } from "../lib/sanity";
+
+interface Props {
+  image?: SanityImageType;
+  alt?: string;
+  width?: number;
+  class?: string;
+}
+
+const { image, alt = "", width = 800, class: className = "" } = Astro.props;
+---
+
+{
+  image ? (
+    <img
+      src={urlFor(image).width(width).url()}
+      alt={alt}
+      class:list={[
+        "h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105",
+        className,
+      ]}
+    />
+  ) : (
+    <div
+      class:list={[
+        "h-full w-full bg-gradient-to-br from-muted to-ink/10 transition-transform duration-700 ease-out group-hover:scale-105",
+        className,
+      ]}
+    />
+  )
+}

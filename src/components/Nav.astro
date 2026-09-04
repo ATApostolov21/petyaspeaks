@@ -1,0 +1,61 @@
+---
+const links = [
+  { href: "/", label: "Начало" },
+  { href: "/about", label: "За мен" },
+  { href: "/books", label: "Книги" },
+  { href: "/blog", label: "Блог" },
+  { href: "/contact", label: "Контакти" },
+];
+
+const currentPath = Astro.url.pathname;
+const isActive = (href: string) =>
+  href === "/" ? currentPath === "/" : currentPath.startsWith(href);
+---
+
+<header
+  data-nav
+  class="sticky top-0 z-50 border-b border-ink/10 bg-paper/85 backdrop-blur transition-shadow duration-300 [&.is-scrolled]:shadow-[0_1px_12px_rgba(29,42,51,0.06)]"
+>
+  <nav class="mx-auto flex max-w-5xl items-center justify-between px-6 py-5">
+    <a href="/" class="group flex items-center gap-2.5">
+      <span
+        class="flex h-8 w-8 items-center justify-center rounded-full border border-accent/40 font-display text-sm text-accent transition-colors group-hover:bg-accent group-hover:text-paper"
+      >
+        П
+      </span>
+      <span class="font-display text-xl tracking-wide text-ink"> Petya Speaks </span>
+    </a>
+
+    <input type="checkbox" id="nav-toggle" class="peer hidden" />
+    <label
+      for="nav-toggle"
+      class="flex flex-col gap-1.5 p-1 md:hidden [.peer:checked~&]:opacity-70"
+      aria-label="Отвори менюто"
+    >
+      <span class="block h-px w-6 bg-ink"></span>
+      <span class="block h-px w-6 bg-ink"></span>
+    </label>
+
+    <ul
+      class="absolute left-0 top-full hidden w-full flex-col gap-1 border-b border-ink/10 bg-paper px-6 py-4 font-serif text-sm text-ink/80 peer-checked:flex md:static md:flex md:w-auto md:flex-row md:gap-8 md:border-none md:bg-transparent md:p-0"
+    >
+      {
+        links.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              aria-current={isActive(link.href) ? "page" : undefined}
+              class:list={[
+                "relative block py-2 transition-colors hover:text-accent md:py-0",
+                "after:absolute after:-bottom-1 after:left-0 after:h-px after:w-full after:origin-left after:scale-x-0 after:bg-accent after:transition-transform after:duration-300 hover:after:scale-x-100",
+                { "text-accent after:scale-x-100": isActive(link.href) },
+              ]}
+            >
+              {link.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</header>

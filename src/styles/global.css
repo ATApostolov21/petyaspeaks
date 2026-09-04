@@ -1,0 +1,106 @@
+@import "tailwindcss";
+
+@theme {
+  /* "Literary classic" palette */
+  --color-paper: #f9f6f2;
+  --color-ink: #1d2a33;
+  --color-accent: #7b2d38;
+  --color-accent-hover: #661f28;
+  --color-muted: #e6eaed;
+
+  /* Elegant serif typography */
+  --font-serif: "Lora", "Georgia", "Times New Roman", serif;
+  --font-display: "Playfair Display", "Georgia", "Times New Roman", serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  position: relative;
+}
+
+/* Subtle paper grain — pure CSS, no network request */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.035;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+::selection {
+  background-color: var(--color-accent);
+  color: var(--color-paper);
+}
+
+/* Scroll-reveal utility */
+.reveal {
+  opacity: 0;
+  transform: translateY(1.1rem);
+  transition:
+    opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-d1 {
+  transition-delay: 0.1s;
+}
+.reveal-d2 {
+  transition-delay: 0.2s;
+}
+.reveal-d3 {
+  transition-delay: 0.3s;
+}
+
+/* Botanical line art that "draws itself" on scroll — see Flower.astro */
+.draw-path {
+  fill: none;
+  stroke-dasharray: 1px;
+  stroke-dashoffset: 1px;
+  transition: stroke-dashoffset 1.4s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.reveal.is-visible .draw-path {
+  stroke-dashoffset: 0px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
+  .draw-path {
+    transition: none;
+    stroke-dashoffset: 0px;
+  }
+}
+
+/* Drop cap for long-form literary text */
+.drop-cap::first-letter,
+.rich-text > p:first-of-type::first-letter {
+  font-family: var(--font-display);
+  float: left;
+  font-size: 3.6em;
+  line-height: 0.85;
+  padding-right: 0.08em;
+  padding-top: 0.05em;
+  color: var(--color-accent);
+}
+
+/* Portable Text output — spacing between rendered blocks */
+.rich-text > * + * {
+  margin-top: 1.5rem;
+}
