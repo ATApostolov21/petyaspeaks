@@ -156,9 +156,9 @@ body::before {
   background: linear-gradient(
     90deg,
     transparent,
-    var(--color-accent) 30%,
+    var(--color-accent) 12%,
     var(--color-gold) 50%,
-    var(--color-accent) 70%,
+    var(--color-accent) 88%,
     transparent
   );
   opacity: 0.6;
@@ -178,9 +178,9 @@ body::before {
   background: linear-gradient(
     90deg,
     transparent,
-    var(--color-accent) 30%,
+    var(--color-accent) 12%,
     var(--color-gold) 50%,
-    var(--color-accent) 70%,
+    var(--color-accent) 88%,
     transparent
   );
   opacity: 0.6;
