@@ -14,16 +14,28 @@ interface Props {
   variant?: "bloom" | "sprig" | "branch";
   class?: string;
   delay?: 0 | 1 | 2 | 3;
+  glow?: boolean;
 }
 
-const { variant = "bloom", class: className = "", delay = 0 } = Astro.props;
+const { variant = "bloom", class: className = "", delay = 0, glow = false } = Astro.props;
 const petalAngles = [0, 60, 120, 180, 240, 300];
 ---
 
 <div
-  class:list={["reveal pointer-events-none select-none", `reveal-d${delay}`, className]}
+  class:list={[
+    "reveal pointer-events-none relative select-none",
+    `reveal-d${delay}`,
+    className,
+  ]}
   aria-hidden="true"
 >
+  {
+    glow && (
+      <div
+        class="absolute inset-0 -z-10 scale-[2] rounded-full bg-gradient-to-br from-gold/25 via-accent/10 to-transparent blur-2xl"
+      />
+    )
+  }
   {
     variant === "bloom" && (
       <svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">

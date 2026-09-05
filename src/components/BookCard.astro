@@ -11,7 +11,7 @@ const { book } = Astro.props;
 
 <article class="reveal group">
   <a href={`/books/${book.slug}`} class="block">
-    <div class="mb-5 aspect-[3/4] w-full overflow-hidden rounded-sm bg-muted shadow-sm">
+    <div class="shadow-warm-sm mb-5 aspect-[3/4] w-full overflow-hidden rounded-sm bg-muted transition-shadow duration-500 group-hover:shadow-warm">
       <SanityImage image={book.coverImage} alt={book.title} width={480} />
     </div>
     <h3 class="mb-1.5 font-display text-xl text-ink transition-colors group-hover:text-accent">

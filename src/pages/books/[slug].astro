@@ -23,7 +23,7 @@ const { book } = Astro.props;
   <Nav />
 
   <main>
-    <section class="mx-auto max-w-5xl px-6 pb-16 pt-16 md:pt-24">
+    <section class="wash mx-auto max-w-5xl px-6 pb-16 pt-16 md:pt-24">
       <a
         href="/books"
         class="reveal mb-10 inline-flex items-center gap-1.5 font-serif text-sm text-ink/60 transition-colors hover:text-accent"
@@ -32,7 +32,7 @@ const { book } = Astro.props;
       </a>
       <div class="grid gap-12 md:grid-cols-[minmax(0,340px)_1fr] md:gap-16">
         <div class="reveal mx-auto w-full max-w-sm md:mx-0">
-          <div class="group aspect-[3/4] w-full overflow-hidden rounded-sm bg-muted shadow-md">
+          <div class="shadow-warm group aspect-[3/4] w-full overflow-hidden rounded-sm bg-muted">
             <SanityImage image={book.coverImage} alt={book.title} width={640} />
           </div>
         </div>
@@ -43,7 +43,7 @@ const { book } = Astro.props;
           <p class="mb-8 text-lg leading-relaxed text-ink/80">{book.description}</p>
           <a
             href={book.purchaseUrl || "#"}
-            class="inline-block rounded-sm bg-accent px-7 py-3 font-serif text-sm tracking-wide text-paper transition-colors hover:bg-accent-hover"
+            class="btn-primary inline-block rounded-sm px-7 py-3 font-serif text-sm tracking-wide text-paper"
           >
             Поръчай книгата
           </a>
@@ -96,7 +96,7 @@ const { book } = Astro.props;
     <section class="mx-auto max-w-2xl px-6 py-16 text-center">
       <a
         href={book.purchaseUrl || "#"}
-        class="reveal inline-block rounded-sm bg-accent px-8 py-3.5 font-serif text-sm tracking-wide text-paper transition-colors hover:bg-accent-hover"
+        class="btn-primary reveal inline-block rounded-sm px-8 py-3.5 font-serif text-sm tracking-wide text-paper"
       >
         Поръчай книгата
       </a>

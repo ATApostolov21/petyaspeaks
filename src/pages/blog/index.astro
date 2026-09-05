@@ -14,7 +14,7 @@ const posts = await getPosts();
   <Nav />
 
   <main>
-    <section class="relative mx-auto max-w-5xl px-6 pb-8 pt-16 text-center md:pt-24">
+    <section class="wash relative mx-auto max-w-5xl px-6 pb-8 pt-16 text-center md:pt-24">
       <Flower
         variant="branch"
         class="absolute -right-6 top-2 hidden w-52 text-ink/10 lg:block"
@@ -88,8 +88,9 @@ const posts = await getPosts();
   .filter-group:has(#f-poem:checked) label[for="f-poem"],
   .filter-group:has(#f-essay:checked) label[for="f-essay"],
   .filter-group:has(#f-story:checked) label[for="f-story"] {
-    background-color: var(--color-accent);
     border-color: var(--color-accent);
     color: var(--color-paper);
+    background-image: linear-gradient(135deg, var(--color-accent), var(--color-accent-hover));
+    box-shadow: 0 8px 20px -10px rgba(176, 141, 87, 0.55);
   }
 </style>

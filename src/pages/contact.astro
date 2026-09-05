@@ -12,9 +12,9 @@ const author = await getAuthor();
 <Layout title="Контакти" description="Свържете се с Петя в Instagram и Facebook.">
   <Nav />
 
-  <main class="flex min-h-[70vh] items-center">
+  <main class="wash flex min-h-[70vh] items-center">
     <section class="mx-auto max-w-xl px-6 py-24 text-center">
-      <Flower variant="bloom" class="mx-auto mb-4 w-16 text-accent/40" />
+      <Flower variant="bloom" glow class="mx-auto mb-4 w-16 text-accent/40" />
       <p class="reveal mb-3 font-serif text-sm uppercase tracking-widest text-accent">
         Контакти
       </p>
@@ -36,7 +36,7 @@ const author = await getAuthor();
                   href={author.instagramUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="group flex w-full items-center justify-center gap-3 rounded-sm border border-ink/15 px-8 py-4 font-serif text-sm tracking-wide text-ink transition-colors hover:border-accent hover:bg-accent hover:text-paper sm:w-auto"
+                  class="group flex w-full items-center justify-center gap-3 rounded-sm border border-ink/15 px-8 py-4 font-serif text-sm tracking-wide text-ink transition-all hover:border-accent hover:bg-accent hover:text-paper hover:shadow-warm-sm sm:w-auto"
                 >
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
                     <rect x="3" y="3" width="18" height="18" rx="5" />
@@ -51,7 +51,7 @@ const author = await getAuthor();
                   href={author.facebookUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="group flex w-full items-center justify-center gap-3 rounded-sm border border-ink/15 px-8 py-4 font-serif text-sm tracking-wide text-ink transition-colors hover:border-accent hover:bg-accent hover:text-paper sm:w-auto"
+                  class="group flex w-full items-center justify-center gap-3 rounded-sm border border-ink/15 px-8 py-4 font-serif text-sm tracking-wide text-ink transition-all hover:border-accent hover:bg-accent hover:text-paper hover:shadow-warm-sm sm:w-auto"
                 >
                   <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M13.5 21v-8.2h2.75l.41-3.2h-3.16V7.4c0-.93.26-1.56 1.6-1.56h1.7V2.98A22.7 22.7 0 0 0 14.3 2.8c-2.63 0-4.43 1.6-4.43 4.55v2.25H7.1v3.2h2.77V21h3.63Z" />

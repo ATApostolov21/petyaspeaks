@@ -20,14 +20,15 @@ const [author, press] = await Promise.all([getAuthor(), getPress()]);
       author ? (
         <>
           <!-- Portrait + intro -->
-          <section class="relative mx-auto max-w-5xl px-6 pb-16 pt-16 md:pt-24">
+          <section class="wash relative mx-auto max-w-5xl px-6 pb-16 pt-16 md:pt-24">
             <Flower
               variant="sprig"
+              glow
               class="absolute -right-2 top-4 hidden w-24 text-accent/20 lg:block"
             />
             <div class="grid items-center gap-12 md:grid-cols-[minmax(0,320px)_1fr] md:gap-16">
               <div class="reveal mx-auto w-full max-w-xs md:mx-0">
-                <div class="group aspect-[4/5] w-full overflow-hidden rounded-sm bg-muted shadow-md">
+                <div class="shadow-warm group aspect-[4/5] w-full overflow-hidden rounded-sm bg-muted">
                   <SanityImage image={author.profileImage} alt={author.name} width={480} />
                 </div>
               </div>

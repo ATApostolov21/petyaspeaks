@@ -27,9 +27,10 @@ const latestPosts = posts.slice(0, 3);
       book && (
         <>
           <!-- Hero: The Book -->
-          <section class="relative mx-auto max-w-5xl px-6 pb-20 pt-16 md:pt-24">
+          <section class="wash relative mx-auto max-w-5xl px-6 pb-20 pt-16 md:pt-24">
             <Flower
               variant="bloom"
+              glow
               class="absolute -right-8 -top-10 hidden w-56 text-accent/15 lg:block"
             />
             <div class="grid items-center gap-12 md:grid-cols-2 md:gap-16">
@@ -44,7 +45,7 @@ const latestPosts = posts.slice(0, 3);
                 <div class="flex flex-wrap gap-4">
                   <a
                     href={book.purchaseUrl || "#"}
-                    class="inline-block rounded-sm bg-accent px-7 py-3 font-serif text-sm tracking-wide text-paper transition-colors hover:bg-accent-hover"
+                    class="btn-primary inline-block rounded-sm px-7 py-3 font-serif text-sm tracking-wide text-paper"
                   >
                     Поръчай книгата
                   </a>
@@ -57,7 +58,7 @@ const latestPosts = posts.slice(0, 3);
                 </div>
               </div>
               <div class="reveal reveal-d1 order-1 md:order-2">
-                <div class="group aspect-[3/4] w-full max-w-sm overflow-hidden rounded-sm bg-muted shadow-md mx-auto md:mx-0">
+                <div class="shadow-warm group aspect-[3/4] w-full max-w-sm overflow-hidden rounded-sm bg-muted mx-auto md:mx-0">
                   <SanityImage image={book.coverImage} alt={book.title} width={640} />
                 </div>
               </div>
@@ -71,7 +72,7 @@ const latestPosts = posts.slice(0, 3);
 
     {
       author && (
-        <section class="relative overflow-hidden bg-muted/60">
+        <section class="wash relative overflow-hidden bg-muted/60">
           <Flower
             variant="sprig"
             class="absolute -left-4 bottom-0 hidden w-24 text-ink/20 md:block"
@@ -79,7 +80,7 @@ const latestPosts = posts.slice(0, 3);
           <div class="mx-auto max-w-5xl px-6 py-20">
             <div class="grid items-center gap-12 md:grid-cols-2 md:gap-16">
               <div class="reveal order-2 mx-auto w-full max-w-sm md:order-1 md:mx-0">
-                <div class="group aspect-square w-full overflow-hidden rounded-full bg-muted shadow-sm ring-1 ring-ink/5">
+                <div class="shadow-warm-sm group aspect-square w-full overflow-hidden rounded-full bg-muted ring-1 ring-ink/5">
                   <SanityImage image={author.profileImage} alt={author.name} width={480} />
                 </div>
               </div>

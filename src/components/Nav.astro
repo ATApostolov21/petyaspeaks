@@ -14,14 +14,18 @@ const isActive = (href: string) =>
 
 <header
   data-nav
-  class="sticky top-0 z-50 border-b border-ink/10 bg-paper/85 backdrop-blur transition-shadow duration-300 [&.is-scrolled]:shadow-[0_1px_12px_rgba(29,42,51,0.06)]"
+  class="nav-gradient-border sticky top-0 z-50 bg-paper/85 backdrop-blur transition-shadow duration-300 [&.is-scrolled]:shadow-[0_1px_12px_rgba(29,42,51,0.06)]"
 >
   <nav class="mx-auto flex max-w-5xl items-center justify-between px-6 py-5">
     <a href="/" class="group flex items-center gap-2.5">
       <span
-        class="flex h-8 w-8 items-center justify-center rounded-full border border-accent/40 font-display text-sm text-accent transition-colors group-hover:bg-accent group-hover:text-paper"
+        class="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-accent via-gold to-accent p-[1px] transition-transform duration-300 group-hover:scale-105"
       >
-        П
+        <span
+          class="flex h-full w-full items-center justify-center rounded-full bg-paper font-display text-sm text-accent transition-colors group-hover:bg-accent group-hover:text-paper"
+        >
+          П
+        </span>
       </span>
       <span class="font-display text-xl tracking-wide text-ink"> Petya Speaks </span>
     </a>

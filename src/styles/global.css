@@ -7,6 +7,8 @@
   --color-accent: #7b2d38;
   --color-accent-hover: #661f28;
   --color-muted: #e6eaed;
+  --color-gold: #b08d57;
+  --color-gold-soft: #d8c39c;
 
   /* Elegant serif typography */
   --font-serif: "Lora", "Georgia", "Times New Roman", serif;
@@ -103,4 +105,91 @@ body::before {
 /* Portable Text output — spacing between rendered blocks */
 .rich-text > * + * {
   margin-top: 1.5rem;
+}
+
+/* --- Elevated pass: gradients, warmth, depth --- */
+
+/* Warm, colored shadows instead of generic gray — used on covers/cards/buttons */
+.shadow-warm-sm {
+  box-shadow: 0 6px 18px -8px rgba(123, 45, 56, 0.28);
+}
+.shadow-warm {
+  box-shadow: 0 16px 36px -14px rgba(123, 45, 56, 0.35);
+}
+
+/* Faint warm radial wash for hero-like sections — depth, not decoration */
+.wash {
+  position: relative;
+}
+.wash::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(55% 75% at 12% 0%, rgba(176, 141, 87, 0.12), transparent 60%),
+    radial-gradient(50% 70% at 100% 100%, rgba(123, 45, 56, 0.07), transparent 55%);
+}
+.wash > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Primary CTA — gradient fill + warm glow, used across the site for consistency */
+.btn-primary {
+  background-image: linear-gradient(180deg, var(--color-accent), var(--color-accent-hover));
+  box-shadow: 0 10px 26px -10px rgba(176, 141, 87, 0.55);
+  transition:
+    box-shadow 0.35s ease,
+    filter 0.35s ease,
+    transform 0.35s ease;
+}
+.btn-primary:hover {
+  box-shadow: 0 14px 34px -10px rgba(176, 141, 87, 0.7);
+  filter: brightness(1.08);
+}
+
+/* Gradient hairline under the nav — brand-colored, fades at the edges */
+.nav-gradient-border {
+  position: relative;
+}
+.nav-gradient-border::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-accent) 30%,
+    var(--color-gold) 50%,
+    var(--color-accent) 70%,
+    transparent
+  );
+  opacity: 0.6;
+}
+
+/* Same gradient hairline, anchored to the top — for the footer */
+.footer-gradient-border {
+  position: relative;
+}
+.footer-gradient-border::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -1px;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-accent) 30%,
+    var(--color-gold) 50%,
+    var(--color-accent) 70%,
+    transparent
+  );
+  opacity: 0.6;
 }
