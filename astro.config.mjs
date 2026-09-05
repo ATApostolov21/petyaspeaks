@@ -16,7 +16,10 @@ export default defineConfig({
       projectId,
       dataset,
       apiVersion,
-      useCdn: true,
+      // Every query here runs once, at build time — not per visitor — so
+      // there's no caching benefit, only staleness risk right after a
+      // publish races the webhook-triggered rebuild. Always read fresh.
+      useCdn: false,
       studioBasePath: '/studio',
     }),
   ],
