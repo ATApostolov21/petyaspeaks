@@ -64,17 +64,6 @@ body::before {
   transition-delay: 0.3s;
 }
 
-/* Botanical line art that "draws itself" on scroll — see Flower.astro */
-.draw-path {
-  fill: none;
-  stroke-dasharray: 1px;
-  stroke-dashoffset: 1px;
-  transition: stroke-dashoffset 1.4s cubic-bezier(0.65, 0, 0.35, 1);
-}
-.reveal.is-visible .draw-path {
-  stroke-dashoffset: 0px;
-}
-
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -83,10 +72,6 @@ body::before {
     transition: none;
     opacity: 1;
     transform: none;
-  }
-  .draw-path {
-    transition: none;
-    stroke-dashoffset: 0px;
   }
 }
 
@@ -117,19 +102,26 @@ body::before {
   box-shadow: 0 16px 36px -14px rgba(123, 45, 56, 0.35);
 }
 
-/* Faint warm radial wash for hero-like sections — depth, not decoration */
+/* Faint warm gradient for hero-like sections — a fixed-height band so it
+   reads as a quiet corner glow rather than a blob that balloons out on
+   tall sections (percentage-sized radial-gradients scale with the box). */
 .wash {
   position: relative;
 }
 .wash::before {
   content: "";
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 280px;
   z-index: 0;
   pointer-events: none;
-  background-image:
-    radial-gradient(55% 75% at 12% 0%, rgba(176, 141, 87, 0.12), transparent 60%),
-    radial-gradient(50% 70% at 100% 100%, rgba(123, 45, 56, 0.07), transparent 55%);
+  background-image: radial-gradient(
+    38rem 16rem at 10% 0%,
+    rgba(176, 141, 87, 0.07),
+    transparent 75%
+  );
 }
 .wash > * {
   position: relative;

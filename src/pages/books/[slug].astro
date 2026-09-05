@@ -3,7 +3,6 @@ import Layout from "../../layouts/Layout.astro";
 import Nav from "../../components/Nav.astro";
 import Footer from "../../components/Footer.astro";
 import Divider from "../../components/Divider.astro";
-import Flower from "../../components/Flower.astro";
 import PortableText from "../../components/PortableText.astro";
 import SanityImage from "../../components/SanityImage.astro";
 import { getBooks } from "../../lib/sanity";
@@ -73,10 +72,6 @@ const { book } = Astro.props;
     {
       book.excerpts && book.excerpts.length > 0 && (
         <section class="relative overflow-hidden bg-muted/60">
-          <Flower
-            variant="sprig"
-            class="absolute -right-4 top-8 hidden w-24 text-accent/20 lg:block"
-          />
           <div class="mx-auto max-w-2xl px-6 py-16">
             <h2 class="reveal mb-10 text-center font-display text-2xl text-ink">Откъси</h2>
             <div class="space-y-10">

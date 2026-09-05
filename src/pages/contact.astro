@@ -2,7 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
-import Flower from "../components/Flower.astro";
+import Divider from "../components/Divider.astro";
 import EmptyState from "../components/EmptyState.astro";
 import { getAuthor } from "../lib/sanity";
 
@@ -14,7 +14,9 @@ const author = await getAuthor();
 
   <main class="wash flex min-h-[70vh] items-center">
     <section class="mx-auto max-w-xl px-6 py-24 text-center">
-      <Flower variant="bloom" glow class="mx-auto mb-4 w-16 text-accent/40" />
+      <div class="mb-6">
+        <Divider />
+      </div>
       <p class="reveal mb-3 font-serif text-sm uppercase tracking-widest text-accent">
         Контакти
       </p>

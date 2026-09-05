@@ -2,7 +2,7 @@
 import Layout from "../../layouts/Layout.astro";
 import Nav from "../../components/Nav.astro";
 import Footer from "../../components/Footer.astro";
-import Flower from "../../components/Flower.astro";
+import Divider from "../../components/Divider.astro";
 import PortableText from "../../components/PortableText.astro";
 import { getPosts, categoryLabels, formatDate, readingTime } from "../../lib/sanity";
 
@@ -41,8 +41,8 @@ const { post } = Astro.props;
 
       <PortableText value={post.body} class="reveal text-lg leading-relaxed text-ink/85" />
 
-      <div class="mt-16 flex justify-center">
-        <Flower variant="bloom" class="w-16 text-accent/40" />
+      <div class="mt-16">
+        <Divider />
       </div>
 
       <div class="reveal mt-6 border-t border-ink/10 pt-8 text-center">

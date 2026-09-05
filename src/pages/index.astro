@@ -3,7 +3,6 @@ import Layout from "../layouts/Layout.astro";
 import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
 import Divider from "../components/Divider.astro";
-import Flower from "../components/Flower.astro";
 import PostCard from "../components/PostCard.astro";
 import SanityImage from "../components/SanityImage.astro";
 import { getAuthor, getBooks, getPosts, getPress } from "../lib/sanity";
@@ -28,11 +27,6 @@ const latestPosts = posts.slice(0, 3);
         <>
           <!-- Hero: The Book -->
           <section class="wash relative mx-auto max-w-5xl px-6 pb-20 pt-16 md:pt-24">
-            <Flower
-              variant="bloom"
-              glow
-              class="absolute -right-8 -top-10 hidden w-56 text-accent/15 lg:block"
-            />
             <div class="grid items-center gap-12 md:grid-cols-2 md:gap-16">
               <div class="reveal order-2 md:order-1">
                 <p class="mb-3 font-serif text-sm uppercase tracking-widest text-accent">
@@ -73,10 +67,6 @@ const latestPosts = posts.slice(0, 3);
     {
       author && (
         <section class="wash relative overflow-hidden bg-muted/60">
-          <Flower
-            variant="sprig"
-            class="absolute -left-4 bottom-0 hidden w-24 text-ink/20 md:block"
-          />
           <div class="mx-auto max-w-5xl px-6 py-20">
             <div class="grid items-center gap-12 md:grid-cols-2 md:gap-16">
               <div class="reveal order-2 mx-auto w-full max-w-sm md:order-1 md:mx-0">

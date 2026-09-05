@@ -2,7 +2,6 @@
 import Layout from "../../layouts/Layout.astro";
 import Nav from "../../components/Nav.astro";
 import Footer from "../../components/Footer.astro";
-import Flower from "../../components/Flower.astro";
 import PostCard from "../../components/PostCard.astro";
 import EmptyState from "../../components/EmptyState.astro";
 import { getPosts } from "../../lib/sanity";
@@ -15,10 +14,6 @@ const posts = await getPosts();
 
   <main>
     <section class="wash relative mx-auto max-w-5xl px-6 pb-8 pt-16 text-center md:pt-24">
-      <Flower
-        variant="branch"
-        class="absolute -right-6 top-2 hidden w-52 text-ink/10 lg:block"
-      />
       <p class="reveal mb-3 font-serif text-sm uppercase tracking-widest text-accent">Блог</p>
       <h1 class="reveal reveal-d1 font-display text-4xl leading-tight text-ink md:text-5xl">
         Поезия, есета и разкази
