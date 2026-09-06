@@ -1,0 +1,30 @@
+---
+/**
+ * Splits a heading into words that cascade in, staggered, whenever the
+ * heading scrolls into view — including on every page navigation, since
+ * astro:page-load re-runs the reveal observer after each view transition.
+ * Falls back to a plain instant heading under prefers-reduced-motion
+ * (handled by the existing .reveal CSS, reused here).
+ */
+interface Props {
+  text: string;
+  as?: "h1" | "h2";
+  class?: string;
+}
+
+const { text, as: Tag = "h1", class: className = "" } = Astro.props;
+const words = text.split(" ");
+---
+
+<Tag class:list={["reveal reveal-heading", className]}>
+  {
+    words.map((word, i) => (
+      <>
+        <span class="reveal-word inline-block" style={`transition-delay:${i * 0.06}s`}>
+          {word}
+        </span>
+        {i < words.length - 1 ? " " : ""}
+      </>
+    ))
+  }
+</Tag>

@@ -19,6 +19,44 @@ export const categoryLabels: Record<Category, string> = {
   story: "разказ",
 };
 
+/**
+ * Full Tailwind class names per category — written out literally (not
+ * built from a bare color name) so Tailwind's build-time content scanner,
+ * which looks for whole class-name tokens in source text, actually picks
+ * these up and generates the CSS for them.
+ */
+export interface CategoryColor {
+  text: string;
+  groupHoverText: string;
+  border: string;
+  gradientFrom: string;
+  gradientTo: string;
+}
+
+export const categoryColors: Record<Category, CategoryColor> = {
+  poem: {
+    text: "text-accent",
+    groupHoverText: "group-hover:text-accent",
+    border: "border-accent/40",
+    gradientFrom: "from-accent",
+    gradientTo: "to-accent-hover",
+  },
+  essay: {
+    text: "text-forest",
+    groupHoverText: "group-hover:text-forest",
+    border: "border-forest/40",
+    gradientFrom: "from-forest",
+    gradientTo: "to-forest-hover",
+  },
+  story: {
+    text: "text-terracotta",
+    groupHoverText: "group-hover:text-terracotta",
+    border: "border-terracotta/40",
+    gradientFrom: "from-terracotta",
+    gradientTo: "to-terracotta-hover",
+  },
+};
+
 export interface SanityImage {
   asset: { _ref: string; _type: "reference" };
   [key: string]: unknown;

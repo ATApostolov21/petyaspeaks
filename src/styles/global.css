@@ -9,10 +9,15 @@
   --color-muted: #e6eaed;
   --color-gold: #b08d57;
   --color-gold-soft: #d8c39c;
+  --color-forest: #4a5d45;
+  --color-forest-hover: #3a4a37;
+  --color-terracotta: #b4623e;
+  --color-terracotta-hover: #9a4f30;
 
   /* Elegant serif typography */
   --font-serif: "Lora", "Georgia", "Times New Roman", serif;
   --font-display: "Playfair Display", "Georgia", "Times New Roman", serif;
+  --font-hand: "Caveat", cursive;
 }
 
 html {
@@ -64,9 +69,35 @@ body::before {
   transition-delay: 0.3s;
 }
 
+/* Word-by-word staggered heading reveal — see AnimatedHeading.astro.
+   The heading itself opts out of the generic .reveal fade (it's only
+   used here as the IntersectionObserver target); each word animates
+   independently with its own inline transition-delay. */
+.reveal-heading.reveal {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+.reveal-word {
+  opacity: 0;
+  transform: translateY(0.4em);
+  transition:
+    opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal-heading.is-visible .reveal-word {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+  .reveal-word {
+    transition: none;
+    opacity: 1;
+    transform: none;
   }
   .reveal {
     transition: none;

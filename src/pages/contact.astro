@@ -3,6 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
 import Divider from "../components/Divider.astro";
+import AnimatedHeading from "../components/AnimatedHeading.astro";
 import EmptyState from "../components/EmptyState.astro";
 import { getAuthor } from "../lib/sanity";
 
@@ -20,9 +21,10 @@ const author = await getAuthor();
       <p class="reveal mb-3 font-serif text-sm uppercase tracking-widest text-accent">
         Контакти
       </p>
-      <h1 class="reveal reveal-d1 mb-6 font-display text-4xl leading-tight text-ink md:text-5xl">
-        Да се свържем
-      </h1>
+      <AnimatedHeading
+        text="Да се свържем"
+        class="reveal-d1 mb-6 font-display text-4xl leading-tight text-ink md:text-5xl"
+      />
 
       {
         author ? (

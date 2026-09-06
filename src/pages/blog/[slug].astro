@@ -3,8 +3,15 @@ import Layout from "../../layouts/Layout.astro";
 import Nav from "../../components/Nav.astro";
 import Footer from "../../components/Footer.astro";
 import Divider from "../../components/Divider.astro";
+import AnimatedHeading from "../../components/AnimatedHeading.astro";
 import PortableText from "../../components/PortableText.astro";
-import { getPosts, categoryLabels, formatDate, readingTime } from "../../lib/sanity";
+import {
+  getPosts,
+  categoryLabels,
+  categoryColors,
+  formatDate,
+  readingTime,
+} from "../../lib/sanity";
 
 export async function getStaticPaths() {
   const posts = await getPosts();
@@ -15,6 +22,7 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
+const color = categoryColors[post.category];
 ---
 
 <Layout title={post.title} description={post.excerpt}>
@@ -30,13 +38,14 @@ const { post } = Astro.props;
       </a>
 
       <header class="reveal reveal-d1 mb-10 text-center">
-        <p class="mb-3 font-serif text-xs uppercase tracking-widest text-accent">
+        <p class:list={["mb-3 font-serif text-xs uppercase tracking-widest", color.text]}>
           {categoryLabels[post.category]} · {formatDate(post.publishedAt)} · {readingTime(post.body)} мин.
           четене
         </p>
-        <h1 class="font-display text-3xl leading-tight text-ink md:text-4xl">
-          {post.title}
-        </h1>
+        <AnimatedHeading
+          text={post.title}
+          class="font-display text-3xl leading-tight text-ink md:text-4xl"
+        />
       </header>
 
       <PortableText value={post.body} class="reveal text-lg leading-relaxed text-ink/85" />

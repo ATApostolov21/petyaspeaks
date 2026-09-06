@@ -3,6 +3,7 @@ import Layout from "../../layouts/Layout.astro";
 import Nav from "../../components/Nav.astro";
 import Footer from "../../components/Footer.astro";
 import PostCard from "../../components/PostCard.astro";
+import AnimatedHeading from "../../components/AnimatedHeading.astro";
 import EmptyState from "../../components/EmptyState.astro";
 import { getPosts } from "../../lib/sanity";
 
@@ -15,9 +16,10 @@ const posts = await getPosts();
   <main>
     <section class="wash relative mx-auto max-w-5xl px-6 pb-8 pt-16 text-center md:pt-24">
       <p class="reveal mb-3 font-serif text-sm uppercase tracking-widest text-accent">Блог</p>
-      <h1 class="reveal reveal-d1 font-display text-4xl leading-tight text-ink md:text-5xl">
-        Поезия, есета и разкази
-      </h1>
+      <AnimatedHeading
+        text="Поезия, есета и разкази"
+        class="reveal-d1 font-display text-4xl leading-tight text-ink md:text-5xl"
+      />
     </section>
 
     {
@@ -43,13 +45,13 @@ const posts = await getPosts();
             </label>
             <label
               for="f-essay"
-              class="tab-label cursor-pointer rounded-full border border-ink/15 px-5 py-2 font-serif text-sm text-ink/70 transition-colors hover:border-accent hover:text-accent"
+              class="tab-label cursor-pointer rounded-full border border-ink/15 px-5 py-2 font-serif text-sm text-ink/70 transition-colors hover:border-forest hover:text-forest"
             >
               Есета
             </label>
             <label
               for="f-story"
-              class="tab-label cursor-pointer rounded-full border border-ink/15 px-5 py-2 font-serif text-sm text-ink/70 transition-colors hover:border-accent hover:text-accent"
+              class="tab-label cursor-pointer rounded-full border border-ink/15 px-5 py-2 font-serif text-sm text-ink/70 transition-colors hover:border-terracotta hover:text-terracotta"
             >
               Разкази
             </label>
@@ -80,12 +82,24 @@ const posts = await getPosts();
   }
 
   .filter-group:has(#f-all:checked) label[for="f-all"],
-  .filter-group:has(#f-poem:checked) label[for="f-poem"],
-  .filter-group:has(#f-essay:checked) label[for="f-essay"],
-  .filter-group:has(#f-story:checked) label[for="f-story"] {
+  .filter-group:has(#f-poem:checked) label[for="f-poem"] {
     border-color: var(--color-accent);
     color: var(--color-paper);
     background-image: linear-gradient(135deg, var(--color-accent), var(--color-accent-hover));
     box-shadow: 0 8px 20px -10px rgba(176, 141, 87, 0.55);
+  }
+
+  .filter-group:has(#f-essay:checked) label[for="f-essay"] {
+    border-color: var(--color-forest);
+    color: var(--color-paper);
+    background-image: linear-gradient(135deg, var(--color-forest), var(--color-forest-hover));
+    box-shadow: 0 8px 20px -10px rgba(74, 93, 69, 0.55);
+  }
+
+  .filter-group:has(#f-story:checked) label[for="f-story"] {
+    border-color: var(--color-terracotta);
+    color: var(--color-paper);
+    background-image: linear-gradient(135deg, var(--color-terracotta), var(--color-terracotta-hover));
+    box-shadow: 0 8px 20px -10px rgba(180, 98, 62, 0.55);
   }
 </style>

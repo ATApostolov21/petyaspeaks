@@ -3,6 +3,7 @@ import Layout from "../../layouts/Layout.astro";
 import Nav from "../../components/Nav.astro";
 import Footer from "../../components/Footer.astro";
 import Divider from "../../components/Divider.astro";
+import AnimatedHeading from "../../components/AnimatedHeading.astro";
 import PortableText from "../../components/PortableText.astro";
 import SanityImage from "../../components/SanityImage.astro";
 import { getBooks } from "../../lib/sanity";
@@ -36,9 +37,10 @@ const { book } = Astro.props;
           </div>
         </div>
         <div class="reveal reveal-d1">
-          <h1 class="mb-5 font-display text-4xl leading-tight text-ink md:text-5xl">
-            {book.title}
-          </h1>
+          <AnimatedHeading
+            text={book.title}
+            class="mb-5 font-display text-4xl leading-tight text-ink md:text-5xl"
+          />
           <p class="mb-8 text-lg leading-relaxed text-ink/80">{book.description}</p>
           <a
             href={book.purchaseUrl || "#"}
