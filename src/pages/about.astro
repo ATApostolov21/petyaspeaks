@@ -4,7 +4,7 @@ import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
 import Divider from "../components/Divider.astro";
 import PortableText from "../components/PortableText.astro";
-import SanityImage from "../components/SanityImage.astro";
+import AuthorVideo from "../components/AuthorVideo.astro";
 import EmptyState from "../components/EmptyState.astro";
 import { getAuthor, getPress, formatDate } from "../lib/sanity";
 
@@ -22,8 +22,8 @@ const [author, press] = await Promise.all([getAuthor(), getPress()]);
           <section class="wash relative mx-auto max-w-5xl px-6 pb-16 pt-16 md:pt-24">
             <div class="grid items-center gap-12 md:grid-cols-[minmax(0,320px)_1fr] md:gap-16">
               <div class="reveal mx-auto w-full max-w-xs md:mx-0">
-                <div class="shadow-warm group aspect-[4/5] w-full overflow-hidden rounded-sm bg-muted">
-                  <SanityImage image={author.profileImage} alt={author.name} width={480} />
+                <div class="shadow-warm aspect-[4/5] w-full overflow-hidden rounded-sm bg-muted">
+                  <AuthorVideo />
                 </div>
               </div>
               <div class="reveal reveal-d1">
