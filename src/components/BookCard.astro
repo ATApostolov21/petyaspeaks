@@ -14,15 +14,15 @@ const { book } = Astro.props;
     <div class="shadow-warm-sm mb-5 aspect-[3/4] w-full overflow-hidden rounded-sm bg-muted transition-shadow duration-500 group-hover:shadow-warm">
       <SanityImage image={book.coverImage} alt={book.title} width={480} />
     </div>
-    <h3 class="mb-1.5 font-display text-xl text-ink transition-colors group-hover:text-accent">
-      {book.title}
-    </h3>
-    <p class="mb-3 leading-relaxed text-ink/70">{book.description}</p>
-    <span
-      class="inline-flex items-center gap-1.5 text-sm text-ink/50 transition-colors group-hover:text-accent"
-    >
-      Разгледай
-      <span class="transition-transform duration-300 group-hover:translate-x-1">→</span>
-    </span>
+    <div class="hover-card -m-4 p-4">
+      <h3 class="hover-card-title mb-1.5 font-display text-xl text-ink">
+        {book.title}
+      </h3>
+      <p class="hover-card-body mb-3 leading-relaxed text-ink/70">{book.description}</p>
+      <span class="hover-card-cta inline-flex items-center gap-1.5 text-sm text-ink/50">
+        Разгледай
+        <span class="transition-transform duration-300 group-hover:translate-x-1">→</span>
+      </span>
+    </div>
   </a>
 </article>

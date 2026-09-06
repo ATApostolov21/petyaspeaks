@@ -72,19 +72,19 @@ const [author, press] = await Promise.all([getAuthor(), getPress()]);
                   href={item.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="group flex flex-col gap-1.5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6"
+                  class="hover-card group -m-4 flex flex-col gap-1.5 p-4 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6"
                 >
                   <div>
-                    <p class="mb-1 font-serif text-xs uppercase tracking-widest text-accent">
+                    <p class="hover-card-eyebrow mb-1 font-serif text-xs uppercase tracking-widest text-accent">
                       {item.mediaName} · {formatDate(item.publishedAt)}
                     </p>
-                    <h3 class="font-display text-lg text-ink transition-colors group-hover:text-accent">
+                    <h3 class="hover-card-title font-display text-lg text-ink">
                       {item.title}
                     </h3>
-                    <p class="mt-1 leading-relaxed text-ink/70">{item.description}</p>
+                    <p class="hover-card-body mt-1 leading-relaxed text-ink/70">{item.description}</p>
                   </div>
                   <span
-                    class="shrink-0 text-ink/40 transition-transform duration-300 group-hover:translate-x-1 group-hover:text-accent"
+                    class="hover-card-cta shrink-0 text-ink/40 transition-transform duration-300 group-hover:translate-x-1"
                     aria-hidden="true"
                   >
                     ↗

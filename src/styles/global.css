@@ -1,7 +1,8 @@
 @import "tailwindcss";
 
 @theme {
-  /* "Literary classic" palette */
+  /* "Literary classic" palette — wine, gold and paper, deepened with the
+     sea-blue and driftwood-brown of the book's own cover art */
   --color-paper: #f9f6f2;
   --color-ink: #1d2a33;
   --color-accent: #7b2d38;
@@ -13,6 +14,13 @@
   --color-forest-hover: #3a4a37;
   --color-terracotta: #b4623e;
   --color-terracotta-hover: #9a4f30;
+
+  /* Sea + driftwood — for gradients, washes and the dark hover-card treatment */
+  --color-sea: #2f5266;
+  --color-sea-deep: #10262f;
+  --color-sea-light: #a9c9d6;
+  --color-brown: #5c4632;
+  --color-brown-soft: #8a6f52;
 
   /* Elegant serif typography */
   --font-serif: "Lora", "Georgia", "Times New Roman", serif;
@@ -26,6 +34,12 @@ html {
 
 body {
   background-color: var(--color-paper);
+  background-image:
+    radial-gradient(60rem 42rem at 100% -8%, rgba(169, 201, 214, 0.22), transparent 60%),
+    radial-gradient(52rem 38rem at -8% 108%, rgba(176, 141, 87, 0.16), transparent 62%),
+    radial-gradient(46rem 30rem at 50% 40%, rgba(92, 70, 50, 0.05), transparent 70%);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   color: var(--color-ink);
   position: relative;
 }
@@ -148,15 +162,29 @@ body::before {
   height: 280px;
   z-index: 0;
   pointer-events: none;
-  background-image: radial-gradient(
-    38rem 16rem at 10% 0%,
-    rgba(176, 141, 87, 0.07),
-    transparent 75%
-  );
+  background-image:
+    radial-gradient(38rem 16rem at 8% 0%, rgba(176, 141, 87, 0.13), transparent 72%),
+    radial-gradient(34rem 18rem at 96% 4%, rgba(47, 82, 102, 0.12), transparent 70%);
 }
 .wash > * {
   position: relative;
   z-index: 1;
+}
+
+/* Soft shoreline gradient — sea-blue drifting into warm sand, for section
+   bands that would otherwise be flat muted grey */
+.band-shore {
+  background-image: linear-gradient(
+    120deg,
+    rgba(169, 201, 214, 0.28) 0%,
+    rgba(230, 234, 237, 0.55) 45%,
+    rgba(216, 195, 156, 0.3) 100%
+  );
+}
+
+/* Footer settles into a faint deep-sea tint at the very bottom of the page */
+footer {
+  background-image: linear-gradient(180deg, transparent, rgba(16, 38, 47, 0.05) 65%);
 }
 
 /* Primary CTA — gradient fill + warm glow, used across the site for consistency */
@@ -215,4 +243,46 @@ body::before {
     transparent
   );
   opacity: 0.6;
+}
+
+/* Dark hover-card — the whole tile deepens to a night-sea gradient and its
+   text lifts to the light paper/gold tones. Used on post/book/press cards
+   so a hover reads as one deliberate, whole-tile transition rather than a
+   single link changing color. Driven by the ancestor `.group` (same
+   convention as Tailwind's group-hover already used across the site) so it
+   still fires when the pointer is over a sibling — e.g. a book cover —
+   rather than the text block itself. */
+.hover-card {
+  position: relative;
+  border-radius: 0.25rem;
+  transition:
+    background-image 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.hover-card:hover,
+.group:hover .hover-card {
+  background-image: linear-gradient(135deg, var(--color-ink), var(--color-sea-deep));
+  box-shadow:
+    0 20px 40px -16px rgba(16, 38, 47, 0.45),
+    inset 0 1px 0 rgba(216, 195, 156, 0.3);
+  transform: translateY(-3px);
+}
+.hover-card-eyebrow,
+.hover-card-title,
+.hover-card-body,
+.hover-card-cta {
+  transition: color 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.group:hover .hover-card-eyebrow {
+  color: var(--color-gold-soft);
+}
+.group:hover .hover-card-title {
+  color: var(--color-paper);
+}
+.group:hover .hover-card-body {
+  color: rgb(249 246 242 / 78%);
+}
+.group:hover .hover-card-cta {
+  color: var(--color-gold-soft);
 }

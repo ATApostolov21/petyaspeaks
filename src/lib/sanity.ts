@@ -27,7 +27,6 @@ export const categoryLabels: Record<Category, string> = {
  */
 export interface CategoryColor {
   text: string;
-  groupHoverText: string;
   border: string;
   gradientFrom: string;
   gradientTo: string;
@@ -36,21 +35,18 @@ export interface CategoryColor {
 export const categoryColors: Record<Category, CategoryColor> = {
   poem: {
     text: "text-accent",
-    groupHoverText: "group-hover:text-accent",
     border: "border-accent/40",
     gradientFrom: "from-accent",
     gradientTo: "to-accent-hover",
   },
   essay: {
     text: "text-forest",
-    groupHoverText: "group-hover:text-forest",
     border: "border-forest/40",
     gradientFrom: "from-forest",
     gradientTo: "to-forest-hover",
   },
   story: {
     text: "text-terracotta",
-    groupHoverText: "group-hover:text-terracotta",
     border: "border-terracotta/40",
     gradientFrom: "from-terracotta",
     gradientTo: "to-terracotta-hover",

@@ -5,7 +5,6 @@ import Footer from "../components/Footer.astro";
 import Divider from "../components/Divider.astro";
 import AnimatedHeading from "../components/AnimatedHeading.astro";
 import PostCard from "../components/PostCard.astro";
-import SanityImage from "../components/SanityImage.astro";
 import AuthorVideo from "../components/AuthorVideo.astro";
 import { getAuthor, getBooks, getPosts, getPress } from "../lib/sanity";
 
@@ -56,7 +55,17 @@ const latestPosts = posts.slice(0, 3);
               </div>
               <div class="reveal reveal-d1 order-1 md:order-2">
                 <div class="shadow-warm group aspect-[3/4] w-full max-w-sm overflow-hidden rounded-sm bg-muted mx-auto md:mx-0">
-                  <SanityImage image={book.coverImage} alt={book.title} width={640} />
+                  <video
+                    data-autoplay-on-view
+                    muted
+                    loop
+                    playsinline
+                    preload="metadata"
+                    poster="/media/book-hero-poster.jpg"
+                    class="h-full w-full object-cover"
+                  >
+                    <source src="/media/book-hero.mp4" type="video/mp4" />
+                  </video>
                 </div>
               </div>
             </div>
@@ -69,7 +78,7 @@ const latestPosts = posts.slice(0, 3);
 
     {
       author && (
-        <section class="wash relative overflow-hidden bg-muted/60">
+        <section class="band-shore wash relative overflow-hidden">
           <div class="mx-auto max-w-5xl px-6 py-20">
             <div class="grid items-center gap-12 md:grid-cols-2 md:gap-16">
               <div class="reveal order-2 mx-auto w-full max-w-sm md:order-1 md:mx-0">
