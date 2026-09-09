@@ -25,7 +25,7 @@
   /* Elegant serif typography */
   --font-serif: "Lora", "Georgia", "Times New Roman", serif;
   --font-display: "Playfair Display", "Georgia", "Times New Roman", serif;
-  --font-hand: "Caveat", cursive;
+  --font-hand: "Marck Script", cursive;
 }
 
 html {
@@ -183,7 +183,7 @@ body::before {
 }
 
 /* Footer settles into a faint deep-sea tint at the very bottom of the page */
-footer {
+.site-footer {
   background-image: linear-gradient(180deg, transparent, rgba(16, 38, 47, 0.05) 65%);
 }
 
@@ -262,9 +262,9 @@ footer {
 }
 .hover-card:hover,
 .group:hover .hover-card {
-  background-image: linear-gradient(135deg, var(--color-ink), var(--color-sea-deep));
+  background-image: linear-gradient(135deg, var(--color-accent), var(--color-accent-hover));
   box-shadow:
-    0 20px 40px -16px rgba(16, 38, 47, 0.45),
+    0 20px 40px -16px rgba(123, 45, 56, 0.45),
     inset 0 1px 0 rgba(216, 195, 156, 0.3);
   transform: translateY(-3px);
 }
