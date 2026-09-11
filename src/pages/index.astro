@@ -54,7 +54,7 @@ const latestPosts = posts.slice(0, 3);
                 </div>
               </div>
               <div class="reveal reveal-d1 order-1 md:order-2">
-                <div class="shadow-warm group aspect-[3/4] w-full max-w-sm overflow-hidden rounded-sm bg-muted mx-auto md:mx-0">
+                <div class="shadow-warm group relative aspect-[3/4] w-full max-w-sm overflow-hidden rounded-sm bg-muted mx-auto md:mx-0">
                   <video
                     data-autoplay-on-view
                     muted
@@ -66,6 +66,13 @@ const latestPosts = posts.slice(0, 3);
                   >
                     <source src="/media/book-hero.mp4" type="video/mp4" />
                   </video>
+                  <!-- Soft vignette over the Kling watermark, in the scene's own cream tone -->
+                  <div
+                    class="pointer-events-none absolute bottom-0 right-0 h-[14%] w-[30%]"
+                    style="background: radial-gradient(ellipse at 100% 100%, rgb(218 200 176) 45%, transparent 100%);"
+                    aria-hidden="true"
+                  >
+                  </div>
                 </div>
               </div>
             </div>

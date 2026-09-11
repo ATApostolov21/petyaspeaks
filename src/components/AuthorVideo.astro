@@ -1,10 +1,11 @@
 ---
 /**
- * Evergreen "about the author" visual — not tied to any specific book,
- * so it never goes stale when a new one is published. Plays only once
- * scrolled into view (see initVideoAutoplay in Layout.astro) and never
- * autoplays under prefers-reduced-motion — the poster frame alone
- * already reads as a normal still photo in that case.
+ * Brand motif for the "about the author" section — an animated version
+ * of the watercolor wave circle from the book's own cover art, rather
+ * than a literal photo/video of her. Plays only once scrolled into view
+ * (see initVideoAutoplay in Layout.astro) and never autoplays under
+ * prefers-reduced-motion — the poster frame alone already reads as a
+ * normal still image in that case.
  */
 interface Props {
   class?: string;
@@ -19,8 +20,8 @@ const { class: className = "" } = Astro.props;
   loop
   playsinline
   preload="metadata"
-  poster="/media/author-pier-poster.jpg"
+  poster="/media/wave-circle-poster.jpg"
   class:list={["h-full w-full object-cover", className]}
 >
-  <source src="/media/author-pier.mp4" type="video/mp4" />
+  <source src="/media/wave-circle.mp4" type="video/mp4" />
 </video>
