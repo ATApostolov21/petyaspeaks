@@ -21,7 +21,14 @@ const { class: className = "" } = Astro.props;
   playsinline
   preload="metadata"
   poster="/media/wave-circle-poster.jpg"
-  class:list={["h-full w-full object-cover", className]}
+  class:list={[
+    // The wave-circle artwork only fills ~77% of its 1440x1440 frame
+    // (measured: circle diameter ~1107px), leaving a white margin. Scale
+    // up so the painted circle's edge reaches the container's own
+    // circular crop instead of floating inside a visible white ring.
+    "h-full w-full scale-[1.32] object-cover",
+    className,
+  ]}
 >
   <source src="/media/wave-circle.mp4" type="video/mp4" />
 </video>
