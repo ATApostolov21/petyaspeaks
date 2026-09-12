@@ -16,8 +16,19 @@ const { book, class: className = "", label = "Поръчай книгата" } =
 ---
 
 {
+  /*
+    data-astro-reload below: this form's action redirects to a *different
+    origin* (checkout.stripe.com). Astro's View Transitions router
+    intercepts same-origin form submits and does them via fetch, but a
+    cross-origin redirect on that fetch is unreadable (CORS), so it aborts
+    and reloads the *original* URL as a GET instead — which 404s, since
+    this route only has a POST handler. data-astro-reload opts this form
+    out, forcing a normal full-page POST.
+  */
+}
+{
   book.price ? (
-    <form action="/api/checkout" method="POST" class="contents">
+    <form action="/api/checkout" method="POST" class="contents" data-astro-reload>
       <input type="hidden" name="slug" value={book.slug} />
       <button type="submit" class:list={[className]}>
         {label} · {formatPrice(book.price)}
