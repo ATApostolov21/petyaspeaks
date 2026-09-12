@@ -22,11 +22,14 @@ const { class: className = "" } = Astro.props;
   preload="metadata"
   poster="/media/wave-circle-poster.jpg"
   class:list={[
-    // The wave-circle artwork only fills ~77% of its 1440x1440 frame
-    // (measured: circle diameter ~1107px), leaving a white margin. Scale
-    // up so the painted circle's edge reaches the container's own
-    // circular crop instead of floating inside a visible white ring.
-    "h-full w-full scale-[1.32] object-cover",
+    // The painted circle isn't centered in its 1440x1440 frame (measured
+    // bounding box: left 175, right 1273, top 134, bottom 1253 — center
+    // sits ~26px above and ~4px right of the frame's own center). Scaling
+    // around the frame's center, the binding constraint is the bottom
+    // edge (720/533 ≈ 1.351 minimum needed to reach it) — 1.32 fell just
+    // short there, leaving a sliver of white showing through the crop.
+    // 1.4 clears all four edges with a bit of margin to spare.
+    "h-full w-full scale-[1.4] object-cover",
     className,
   ]}
 >
