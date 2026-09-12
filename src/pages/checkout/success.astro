@@ -1,0 +1,30 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Nav from "../../components/Nav.astro";
+import Footer from "../../components/Footer.astro";
+import AnimatedHeading from "../../components/AnimatedHeading.astro";
+---
+
+<Layout title="Поръчката е приета">
+  <Nav />
+
+  <main>
+    <section class="wash mx-auto max-w-2xl px-6 py-24 text-center">
+      <AnimatedHeading
+        text="Благодарим за поръчката!"
+        class="mb-5 font-display text-3xl leading-tight text-ink md:text-4xl"
+      />
+      <p class="mb-10 text-lg leading-relaxed text-ink/80">
+        Плащането е успешно. Скоро ще получите имейл с потвърждение на поръчката.
+      </p>
+      <a
+        href="/books"
+        class="inline-flex items-center gap-1.5 font-serif text-sm text-accent transition-colors hover:text-accent-hover"
+      >
+        ← Обратно към книгите
+      </a>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>

@@ -3,10 +3,15 @@ import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import react from '@astrojs/react';
 import sanity from '@sanity/astro';
+import vercel from '@astrojs/vercel';
 import { projectId, dataset, apiVersion } from './sanity/env';
 
 // https://astro.build/config
 export default defineConfig({
+  // Stays static by default — only routes that opt out with
+  // `export const prerender = false` (the Stripe checkout/webhook
+  // endpoints) render on demand. Every existing page is unaffected.
+  adapter: vercel(),
   vite: {
     plugins: [tailwindcss()],
   },

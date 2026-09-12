@@ -48,8 +48,16 @@ export default defineType({
       validation: (rule) => rule.max(3),
     }),
     defineField({
+      name: "price",
+      title: "Цена (€)",
+      description: "Задайте цена, за да се появи бутон за поръчка директно на сайта чрез Stripe.",
+      type: "number",
+      validation: (rule) => rule.min(0),
+    }),
+    defineField({
       name: "purchaseUrl",
-      title: "Връзка за поръчка",
+      title: "Връзка за поръчка (резервна)",
+      description: "Използва се само ако няма зададена цена по-горе.",
       type: "url",
     }),
     defineField({

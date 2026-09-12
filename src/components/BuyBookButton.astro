@@ -1,0 +1,31 @@
+---
+/**
+ * Renders the on-site Stripe Checkout button when the book has a price set
+ * in Sanity, falling back to the external purchaseUrl link otherwise — so
+ * books published before this feature keep working unchanged.
+ */
+import { formatPrice, type Book } from "../lib/sanity";
+
+interface Props {
+  book: Book;
+  class?: string;
+  label?: string;
+}
+
+const { book, class: className = "", label = "Поръчай книгата" } = Astro.props;
+---
+
+{
+  book.price ? (
+    <form action="/api/checkout" method="POST" class="contents">
+      <input type="hidden" name="slug" value={book.slug} />
+      <button type="submit" class:list={[className]}>
+        {label} · {formatPrice(book.price)}
+      </button>
+    </form>
+  ) : (
+    <a href={book.purchaseUrl || "#"} class:list={[className]}>
+      {label}
+    </a>
+  )
+}

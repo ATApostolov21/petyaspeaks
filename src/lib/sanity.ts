@@ -75,6 +75,7 @@ export interface Book {
   description: string;
   annotation?: PortableTextBlock[];
   excerpts?: string[];
+  price?: number;
   purchaseUrl?: string;
 }
 
@@ -105,6 +106,7 @@ const bookProjection = `{
   description,
   annotation,
   excerpts,
+  price,
   purchaseUrl
 }`;
 
@@ -162,6 +164,16 @@ export function formatDate(iso: string): string {
     month: "long",
     day: "numeric",
   }).format(new Date(iso));
+}
+
+/** Site-wide checkout currency — Bulgaria's currency since its 2026 euro adoption. */
+export const CHECKOUT_CURRENCY = "eur";
+
+export function formatPrice(amount: number): string {
+  return new Intl.NumberFormat("bg-BG", {
+    style: "currency",
+    currency: CHECKOUT_CURRENCY.toUpperCase(),
+  }).format(amount);
 }
 
 export function readingTime(blocks: PortableTextBlock[] = []): number {

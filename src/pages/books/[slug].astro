@@ -6,6 +6,7 @@ import Divider from "../../components/Divider.astro";
 import AnimatedHeading from "../../components/AnimatedHeading.astro";
 import PortableText from "../../components/PortableText.astro";
 import SanityImage from "../../components/SanityImage.astro";
+import BuyBookButton from "../../components/BuyBookButton.astro";
 import { getBooks } from "../../lib/sanity";
 
 export async function getStaticPaths() {
@@ -42,12 +43,10 @@ const { book } = Astro.props;
             class="mb-5 font-display text-4xl leading-tight text-ink md:text-5xl"
           />
           <p class="mb-8 text-lg leading-relaxed text-ink/80">{book.description}</p>
-          <a
-            href={book.purchaseUrl || "#"}
+          <BuyBookButton
+            book={book}
             class="btn-primary inline-block rounded-sm px-7 py-3 font-serif text-sm tracking-wide text-paper"
-          >
-            Поръчай книгата
-          </a>
+          />
         </div>
       </div>
     </section>
@@ -91,12 +90,10 @@ const { book } = Astro.props;
     }
 
     <section class="mx-auto max-w-2xl px-6 py-16 text-center">
-      <a
-        href={book.purchaseUrl || "#"}
+      <BuyBookButton
+        book={book}
         class="btn-primary reveal inline-block rounded-sm px-8 py-3.5 font-serif text-sm tracking-wide text-paper"
-      >
-        Поръчай книгата
-      </a>
+      />
     </section>
   </main>
 
