@@ -56,7 +56,14 @@ const {
               }
             });
           },
-          { threshold: 0.15, rootMargin: "0px 0px -40px 0px" },
+          // threshold is a fraction of the TARGET's own area, not the
+          // viewport's — a 0.15 threshold silently never fires for any
+          // element taller than ~6x the viewport (its max achievable
+          // intersection ratio drops below 0.15 no matter how it's
+          // scrolled), which is exactly what happened to a long story's
+          // single-block body. 0 fires as soon as any part is visible,
+          // which is robust regardless of element size.
+          { threshold: 0, rootMargin: "0px 0px -40px 0px" },
         );
         els.forEach((el) => observer.observe(el));
       }
