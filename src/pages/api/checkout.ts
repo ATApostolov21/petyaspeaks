@@ -32,6 +32,8 @@ export const POST: APIRoute = async ({ request, url }) => {
     // Physical book — collect a mailing address. Bulgaria-only for now;
     // widen `allowed_countries` once international shipping is sorted out.
     shipping_address_collection: { allowed_countries: ["BG"] },
+    // Couriers (Econt, Speedy, etc.) need a contact number to deliver.
+    phone_number_collection: { enabled: true },
     // Managed Payments (Stripe-as-merchant-of-record, on by default on this
     // account) only supports digital goods and rejects shipping params —
     // this is a physical book, so we stay the merchant of record ourselves.

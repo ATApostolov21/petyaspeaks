@@ -17,7 +17,9 @@ export const prerender = false;
 function fulfillOrder(session: Stripe.Checkout.Session) {
   console.log("Order to fulfill:", {
     sessionId: session.id,
+    customerName: session.customer_details?.name,
     customerEmail: session.customer_details?.email,
+    customerPhone: session.customer_details?.phone,
     shippingAddress: session.collected_information?.shipping_details?.address,
     amountTotal: session.amount_total,
     currency: session.currency,
