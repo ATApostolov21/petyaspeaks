@@ -41,6 +41,9 @@ export const POST: APIRoute = async ({ request, url }) => {
     success_url: `${url.origin}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${url.origin}/books/${book.slug}`,
     integration_identifier: CHECKOUT_INTEGRATION_IDENTIFIER,
+    // Read back in the webhook handler so it can email order details
+    // without an extra API round-trip to look the book up again.
+    metadata: { bookSlug: book.slug, bookTitle: book.title },
   });
 
   if (!session.url) {
