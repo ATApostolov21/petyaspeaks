@@ -3,6 +3,7 @@ import type Stripe from "stripe";
 import { stripe } from "../../lib/stripe";
 import { sendEmail } from "../../lib/email";
 import { formatPrice } from "../../lib/sanity";
+import { sanityWriteClient } from "../../lib/sanityWriteClient";
 
 export const prerender = false;
 
@@ -20,9 +21,11 @@ function formatAddress(address: Stripe.Address | null | undefined): string {
  * successfully and never load the success page (lost connection, closed
  * tab), so any logic that only ran there would silently drop orders.
  *
- * Sends two emails via Resend: an internal notification (so someone
- * actually knows to ship the book) and a customer confirmation (the
- * success page promises one — this is what makes that true).
+ * Three independent tasks run side by side: two emails via Resend (an
+ * internal notification so someone knows to ship the book, and a customer
+ * confirmation — the success page promises one, this is what makes that
+ * true) and a durable order record in Sanity, so a lost/spam-filtered
+ * email doesn't mean the order has no trail at all.
  */
 async function fulfillOrder(session: Stripe.Checkout.Session) {
   const bookTitle = session.metadata?.bookTitle ?? "книга";
@@ -43,7 +46,7 @@ async function fulfillOrder(session: Stripe.Checkout.Session) {
     currency: session.currency,
   });
 
-  const emails: Promise<unknown>[] = [
+  const tasks: Promise<unknown>[] = [
     sendEmail({
       to: OWNER_EMAIL,
       subject: `Нова поръчка — ${bookTitle}`,
@@ -58,10 +61,36 @@ async function fulfillOrder(session: Stripe.Checkout.Session) {
       `,
       replyTo: customerEmail ?? undefined,
     }),
+    // Deterministic ID from the session — Stripe webhooks are at-least-once
+    // delivery, so a redelivered event must not create a duplicate order.
+    // createIfNotExists (not createOrReplace) also means a redelivery can
+    // never clobber a status the editor already updated in Studio.
+    sanityWriteClient.createIfNotExists({
+      _id: `order-${session.id}`,
+      _type: "order",
+      status: "new",
+      bookTitle,
+      amountTotal: session.amount_total != null ? session.amount_total / 100 : null,
+      currency: session.currency?.toUpperCase(),
+      customerName,
+      customerEmail,
+      customerPhone,
+      shippingAddress: address
+        ? {
+            line1: address.line1,
+            line2: address.line2,
+            city: address.city,
+            postalCode: address.postal_code,
+            country: address.country,
+          }
+        : undefined,
+      stripeSessionId: session.id,
+      createdAt: new Date().toISOString(),
+    }),
   ];
 
   if (customerEmail) {
-    emails.push(
+    tasks.push(
       sendEmail({
         to: customerEmail,
         subject: "Потвърждение на поръчката — Petya Speaks",
@@ -75,12 +104,12 @@ async function fulfillOrder(session: Stripe.Checkout.Session) {
     );
   }
 
-  // Settle rather than all() — a failed customer email shouldn't stop the
-  // owner notification from going out, and vice versa.
-  const results = await Promise.allSettled(emails);
+  // Settle rather than all() — one task failing (e.g. a bad customer email
+  // address) shouldn't stop the others from completing.
+  const results = await Promise.allSettled(tasks);
   results.forEach((result) => {
     if (result.status === "rejected") {
-      console.error("Order email failed to send:", result.reason);
+      console.error("Order fulfillment task failed:", result.reason);
     }
   });
 }

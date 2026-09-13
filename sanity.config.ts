@@ -24,8 +24,17 @@ export default defineConfig({
                 S.document().schemaType("author").documentId("author"),
               ),
             S.divider(),
+            S.listItem()
+              .title("Поръчки")
+              .schemaType("order")
+              .child(
+                S.documentTypeList("order")
+                  .title("Поръчки")
+                  .defaultOrdering([{ field: "createdAt", direction: "desc" }]),
+              ),
+            S.divider(),
             ...S.documentTypeListItems().filter(
-              (item) => item.getId() !== "author",
+              (item) => item.getId() !== "author" && item.getId() !== "order",
             ),
           ]),
     }),
