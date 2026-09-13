@@ -14,7 +14,7 @@ export { sanityClient };
 export type Category = "poem" | "essay" | "story";
 
 export const categoryLabels: Record<Category, string> = {
-  poem: "поезия",
+  poem: "стихове",
   essay: "есе",
   story: "разказ",
 };

@@ -10,14 +10,14 @@ import { getPosts } from "../../lib/sanity";
 const posts = await getPosts();
 ---
 
-<Layout title="Блог" description="Поезия, есета и разкази.">
+<Layout title="Блог" description="Поезия и проза.">
   <Nav />
 
   <main>
     <section class="wash relative mx-auto max-w-5xl px-6 pb-8 pt-16 text-center md:pt-24">
       <p class="reveal mb-3 font-serif text-sm uppercase tracking-widest text-accent">Блог</p>
       <AnimatedHeading
-        text="Поезия, есета и разкази"
+        text="Поезия и проза"
         class="reveal-d1 font-display text-4xl leading-tight text-ink md:text-5xl"
       />
     </section>
@@ -41,7 +41,7 @@ const posts = await getPosts();
               for="f-poem"
               class="tab-label cursor-pointer rounded-full border border-ink/15 px-5 py-2 font-serif text-sm text-ink/70 transition-colors duration-500 ease-out hover:border-accent hover:text-accent"
             >
-              Поезия
+              Стихове
             </label>
             <label
               for="f-essay"

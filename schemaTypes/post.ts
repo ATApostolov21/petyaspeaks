@@ -24,7 +24,7 @@ export default defineType({
       type: "string",
       options: {
         list: [
-          { title: "Поезия", value: "poem" },
+          { title: "Стихотворение", value: "poem" },
           { title: "Есе", value: "essay" },
           { title: "Разказ", value: "story" },
         ],
