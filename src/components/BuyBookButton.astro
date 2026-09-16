@@ -28,10 +28,27 @@ const { book, class: className = "", label = "Поръчай книгата" } =
 }
 {
   book.price ? (
-    <form action="/api/checkout" method="POST" class="contents" data-astro-reload>
+    <form
+      action="/api/checkout"
+      method="POST"
+      class="inline-flex flex-wrap items-center gap-3"
+      data-astro-reload
+    >
       <input type="hidden" name="slug" value={book.slug} />
+      <label class="sr-only" for={`qty-${book.slug}`}>
+        Брой
+      </label>
+      <select
+        id={`qty-${book.slug}`}
+        name="quantity"
+        class="rounded-sm border border-ink/15 bg-paper px-2.5 py-2.5 font-serif text-sm text-ink/80 transition-colors focus:border-accent focus:outline-none"
+      >
+        {[1, 2, 3, 4, 5].map((n) => (
+          <option value={n}>{n} бр.</option>
+        ))}
+      </select>
       <button type="submit" class:list={[className]}>
-        {label} · {formatPrice(book.price)}
+        {label} · {formatPrice(book.price)} / бр.
       </button>
     </form>
   ) : (

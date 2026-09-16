@@ -19,37 +19,34 @@ export const categoryLabels: Record<Category, string> = {
   story: "разказ",
 };
 
-/**
- * Full Tailwind class names per category — written out literally (not
- * built from a bare color name) so Tailwind's build-time content scanner,
- * which looks for whole class-name tokens in source text, actually picks
- * these up and generates the CSS for them.
- */
 export interface CategoryColor {
+  /** Tailwind text-color class — written out literally (not built from a
+   *  bare color name) so Tailwind's build-time content scanner, which looks
+   *  for whole class-name tokens in source text, actually picks it up. */
   text: string;
-  border: string;
-  gradientFrom: string;
-  gradientTo: string;
+  /** Raw `--color-*` custom property name (not a Tailwind class) — read via
+   *  `var(...)` where a category needs to drive an inline CSS variable
+   *  instead of a static utility class (hover-card gradients, drop-cap and
+   *  link colors on a post's own page). */
+  hoverFrom: string;
+  hoverTo: string;
 }
 
 export const categoryColors: Record<Category, CategoryColor> = {
   poem: {
-    text: "text-accent",
-    border: "border-accent/40",
-    gradientFrom: "from-accent",
-    gradientTo: "to-accent-hover",
+    text: "text-sea",
+    hoverFrom: "--color-sea",
+    hoverTo: "--color-sea-deep",
   },
   essay: {
     text: "text-forest",
-    border: "border-forest/40",
-    gradientFrom: "from-forest",
-    gradientTo: "to-forest-hover",
+    hoverFrom: "--color-forest",
+    hoverTo: "--color-forest-hover",
   },
   story: {
     text: "text-terracotta",
-    border: "border-terracotta/40",
-    gradientFrom: "from-terracotta",
-    gradientTo: "to-terracotta-hover",
+    hoverFrom: "--color-terracotta",
+    hoverTo: "--color-terracotta-hover",
   },
 };
 

@@ -48,7 +48,12 @@ const color = categoryColors[post.category];
         />
       </header>
 
-      <PortableText value={post.body} class="reveal text-lg leading-relaxed text-ink/85" />
+      <PortableText
+        value={post.body}
+        class="reveal text-lg leading-relaxed text-ink/85"
+        accent={color.hoverFrom}
+        accentHover={color.hoverTo}
+      />
 
       <div class="mt-16">
         <Divider />

@@ -120,7 +120,9 @@ body::before {
   }
 }
 
-/* Drop cap for long-form literary text */
+/* Drop cap for long-form literary text. --content-accent lets a specific
+   post's page recolor this per its category (see PortableText.astro); it
+   falls back to the site's default wine accent when unset (book pages). */
 .drop-cap::first-letter,
 .rich-text > p:first-of-type::first-letter {
   font-family: var(--font-display);
@@ -129,12 +131,24 @@ body::before {
   line-height: 0.85;
   padding-right: 0.08em;
   padding-top: 0.05em;
-  color: var(--color-accent);
+  color: var(--content-accent, var(--color-accent));
 }
 
 /* Portable Text output — spacing between rendered blocks */
 .rich-text > * + * {
   margin-top: 1.5rem;
+}
+
+/* Blockquote/link colors inside Portable Text — same --content-accent
+   variable as the drop-cap above, so a post's category recolors both. */
+.content-blockquote {
+  border-color: color-mix(in srgb, var(--content-accent, var(--color-accent)) 40%, transparent);
+}
+.content-link {
+  color: var(--content-accent, var(--color-accent));
+}
+.content-link:hover {
+  color: var(--content-accent-hover, var(--color-accent-hover));
 }
 
 /* --- Elevated pass: gradients, warmth, depth --- */
@@ -246,13 +260,17 @@ body::before {
   opacity: 0.6;
 }
 
-/* Dark hover-card — the whole tile deepens to a night-sea gradient and its
-   text lifts to the light paper/gold tones. Used on post/book/press cards
-   so a hover reads as one deliberate, whole-tile transition rather than a
+/* Dark hover-card — the whole tile deepens to a gradient and its text
+   lifts to the light paper/gold tones. Used on post/book/press cards so a
+   hover reads as one deliberate, whole-tile transition rather than a
    single link changing color. Driven by the ancestor `.group` (same
    convention as Tailwind's group-hover already used across the site) so it
    still fires when the pointer is over a sibling — e.g. a book cover —
-   rather than the text block itself. */
+   rather than the text block itself.
+
+   --hover-from/--hover-to let a specific card recolor this gradient (see
+   PostCard.astro, which sets them per post category); they fall back to
+   the site's default wine accent when unset, e.g. on book/press cards. */
 .hover-card {
   position: relative;
   border-radius: 0.25rem;
@@ -263,7 +281,11 @@ body::before {
 }
 .hover-card:hover,
 .group:hover .hover-card {
-  background-image: linear-gradient(135deg, var(--color-accent), var(--color-accent-hover));
+  background-image: linear-gradient(
+    135deg,
+    var(--hover-from, var(--color-accent)),
+    var(--hover-to, var(--color-accent-hover))
+  );
   box-shadow:
     0 20px 40px -16px rgba(123, 45, 56, 0.45),
     inset 0 1px 0 rgba(216, 195, 156, 0.3);

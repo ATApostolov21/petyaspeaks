@@ -29,6 +29,7 @@ function formatAddress(address: Stripe.Address | null | undefined): string {
  */
 async function fulfillOrder(session: Stripe.Checkout.Session) {
   const bookTitle = session.metadata?.bookTitle ?? "книга";
+  const quantity = parseInt(session.metadata?.quantity ?? "1", 10) || 1;
   const customerName = session.customer_details?.name ?? "—";
   const customerEmail = session.customer_details?.email;
   const customerPhone = session.customer_details?.phone ?? "—";
@@ -38,6 +39,7 @@ async function fulfillOrder(session: Stripe.Checkout.Session) {
 
   console.log("Order fulfilled:", {
     sessionId: session.id,
+    quantity,
     customerName,
     customerEmail,
     customerPhone,
@@ -53,6 +55,7 @@ async function fulfillOrder(session: Stripe.Checkout.Session) {
       html: `
         <h2>Нова поръчка</h2>
         <p><strong>Книга:</strong> ${bookTitle}</p>
+        <p><strong>Брой:</strong> ${quantity}</p>
         <p><strong>Сума:</strong> ${amount}</p>
         <p><strong>Клиент:</strong> ${customerName}</p>
         <p><strong>Имейл:</strong> ${customerEmail ?? "—"}</p>
@@ -70,6 +73,7 @@ async function fulfillOrder(session: Stripe.Checkout.Session) {
       _type: "order",
       status: "new",
       bookTitle,
+      quantity,
       amountTotal: session.amount_total != null ? session.amount_total / 100 : null,
       currency: session.currency?.toUpperCase(),
       customerName,

@@ -39,7 +39,7 @@ const posts = await getPosts();
             </label>
             <label
               for="f-poem"
-              class="tab-label cursor-pointer rounded-full border border-ink/15 px-5 py-2 font-serif text-sm text-ink/70 transition-colors duration-500 ease-out hover:border-accent hover:text-accent"
+              class="tab-label cursor-pointer rounded-full border border-ink/15 px-5 py-2 font-serif text-sm text-ink/70 transition-colors duration-500 ease-out hover:border-sea hover:text-sea"
             >
               Стихове
             </label>
@@ -81,12 +81,18 @@ const posts = await getPosts();
     display: none;
   }
 
-  .filter-group:has(#f-all:checked) label[for="f-all"],
-  .filter-group:has(#f-poem:checked) label[for="f-poem"] {
+  .filter-group:has(#f-all:checked) label[for="f-all"] {
     border-color: var(--color-accent);
     color: var(--color-paper);
     background-image: linear-gradient(135deg, var(--color-accent), var(--color-accent-hover));
     box-shadow: 0 8px 20px -10px rgba(176, 141, 87, 0.55);
+  }
+
+  .filter-group:has(#f-poem:checked) label[for="f-poem"] {
+    border-color: var(--color-sea);
+    color: var(--color-paper);
+    background-image: linear-gradient(135deg, var(--color-sea), var(--color-sea-deep));
+    box-shadow: 0 8px 20px -10px rgba(47, 82, 102, 0.55);
   }
 
   .filter-group:has(#f-essay:checked) label[for="f-essay"] {

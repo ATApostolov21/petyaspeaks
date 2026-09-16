@@ -8,10 +8,11 @@ interface Props {
 
 const { post, class: className = "" } = Astro.props;
 const color = categoryColors[post.category];
+const hoverStyle = `--hover-from: var(${color.hoverFrom}); --hover-to: var(${color.hoverTo});`;
 ---
 
 <article class:list={["group reveal", className]}>
-  <a href={`/blog/${post.slug}`} class="hover-card -m-6 block p-6">
+  <a href={`/blog/${post.slug}`} class="hover-card -m-6 block p-6" style={hoverStyle}>
     <p class:list={["hover-card-eyebrow mb-2 font-serif text-xs uppercase tracking-widest", color.text]}>
       {categoryLabels[post.category]} · {formatDate(post.publishedAt)}
     </p>

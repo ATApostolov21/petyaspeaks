@@ -6,16 +6,24 @@ import { urlFor } from "../lib/sanity";
 interface Props {
   value?: PortableTextBlock[];
   class?: string;
+  /** Raw `--color-*` custom property names, e.g. "--color-sea" — recolors
+   *  the drop-cap, blockquote border and links to match a post's category.
+   *  Left unset on book pages, which keep the default wine accent. */
+  accent?: string;
+  accentHover?: string;
 }
 
-const { value = [], class: className = "" } = Astro.props;
+const { value = [], class: className = "", accent, accentHover } = Astro.props;
+const style = accent
+  ? `--content-accent: var(${accent});${accentHover ? ` --content-accent-hover: var(${accentHover});` : ""}`
+  : undefined;
 
 const html = toHTML(value, {
   components: {
     block: {
       normal: ({ children }) => `<p>${children}</p>`,
       blockquote: ({ children }) =>
-        `<blockquote class="border-l-2 border-accent/40 pl-6 font-display text-xl italic text-ink/90">${children}</blockquote>`,
+        `<blockquote class="content-blockquote border-l-2 pl-6 font-display text-xl italic text-ink/90">${children}</blockquote>`,
       h2: ({ children }) => `<h2 class="mt-4 font-display text-2xl text-ink">${children}</h2>`,
       h3: ({ children }) => `<h3 class="mt-4 font-display text-xl text-ink">${children}</h3>`,
     },
@@ -23,7 +31,7 @@ const html = toHTML(value, {
       strong: ({ children }) => `<strong class="text-ink">${children}</strong>`,
       em: ({ children }) => `<em>${children}</em>`,
       link: ({ children, value: linkValue }) =>
-        `<a href="${(linkValue as { href?: string })?.href ?? "#"}" class="text-accent underline underline-offset-2 transition-colors hover:text-accent-hover" target="_blank" rel="noopener noreferrer">${children}</a>`,
+        `<a href="${(linkValue as { href?: string })?.href ?? "#"}" class="content-link underline underline-offset-2 transition-colors" target="_blank" rel="noopener noreferrer">${children}</a>`,
     },
     list: {
       bullet: ({ children }) => `<ul class="list-disc space-y-2 pl-6">${children}</ul>`,
@@ -41,4 +49,4 @@ const html = toHTML(value, {
 });
 ---
 
-<div class:list={["rich-text", className]} set:html={html} />
+<div class:list={["rich-text", className]} style={style} set:html={html} />

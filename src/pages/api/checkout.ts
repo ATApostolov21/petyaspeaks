@@ -17,6 +17,11 @@ export const POST: APIRoute = async ({ request, url }) => {
     return new Response("Book not available for purchase", { status: 404 });
   }
 
+  // Clamp to a sane range rather than trusting the submitted value outright
+  // — it's just a <select> of 1-5 today, but the field is still client input.
+  const requestedQuantity = parseInt(String(formData.get("quantity") ?? "1"), 10);
+  const quantity = Math.min(Math.max(requestedQuantity || 1, 1), 20);
+
   const session = await stripe.checkout.sessions.create({
     mode: "payment",
     line_items: [
@@ -26,7 +31,7 @@ export const POST: APIRoute = async ({ request, url }) => {
           unit_amount: Math.round(book.price * 100),
           product_data: { name: book.title },
         },
-        quantity: 1,
+        quantity,
       },
     ],
     // Physical book — collect a mailing address. Bulgaria-only for now;
@@ -43,7 +48,7 @@ export const POST: APIRoute = async ({ request, url }) => {
     integration_identifier: CHECKOUT_INTEGRATION_IDENTIFIER,
     // Read back in the webhook handler so it can email order details
     // without an extra API round-trip to look the book up again.
-    metadata: { bookSlug: book.slug, bookTitle: book.title },
+    metadata: { bookSlug: book.slug, bookTitle: book.title, quantity: String(quantity) },
   });
 
   if (!session.url) {

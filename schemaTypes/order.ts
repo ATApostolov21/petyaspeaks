@@ -35,6 +35,12 @@ export default defineType({
       readOnly: true,
     }),
     defineField({
+      name: "quantity",
+      title: "Брой",
+      type: "number",
+      readOnly: true,
+    }),
+    defineField({
       name: "amountTotal",
       title: "Сума",
       type: "number",
