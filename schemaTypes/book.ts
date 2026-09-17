@@ -42,9 +42,33 @@ export default defineType({
     defineField({
       name: "excerpts",
       title: "Откъси",
-      description: "2–3 кратки откъса от книгата.",
+      description: "2–3 кратки откъса от книгата — за проза или за стихотворение.",
       type: "array",
-      of: [{ type: "text", rows: 3 }],
+      of: [
+        {
+          type: "object",
+          name: "excerpt",
+          fields: [
+            defineField({
+              name: "title",
+              title: "Заглавие (незадължително)",
+              description: "Напр. заглавието на стихотворението.",
+              type: "string",
+            }),
+            defineField({
+              name: "text",
+              title: "Текст",
+              description: "За стихотворение — всеки нов ред тук се пренася на нов ред на сайта.",
+              type: "text",
+              rows: 6,
+              validation: (rule) => rule.required(),
+            }),
+          ],
+          preview: {
+            select: { title: "title", subtitle: "text" },
+          },
+        },
+      ],
       validation: (rule) => rule.max(3),
     }),
     defineField({

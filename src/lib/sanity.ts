@@ -64,6 +64,13 @@ export interface Author {
   facebookUrl?: string;
 }
 
+export interface Excerpt {
+  title?: string;
+  /** May contain embedded newlines (e.g. poem line breaks) — render with
+   *  `whitespace-pre-line` so they show up instead of collapsing. */
+  text: string;
+}
+
 export interface Book {
   _id: string;
   title: string;
@@ -71,7 +78,7 @@ export interface Book {
   coverImage?: SanityImage;
   description: string;
   annotation?: PortableTextBlock[];
-  excerpts?: string[];
+  excerpts?: Excerpt[];
   price?: number;
   purchaseUrl?: string;
 }
@@ -102,7 +109,7 @@ const bookProjection = `{
   coverImage,
   description,
   annotation,
-  excerpts,
+  excerpts[]{ title, text },
   price,
   purchaseUrl
 }`;

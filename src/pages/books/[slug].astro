@@ -80,7 +80,14 @@ const { book } = Astro.props;
                 <blockquote
                   class={`reveal reveal-d${Math.min(i + 1, 3)} border-l-2 border-accent/40 pl-6`}
                 >
-                  <p class="font-display text-xl italic leading-relaxed text-ink/90">{excerpt}</p>
+                  {excerpt.title && (
+                    <p class="mb-2 font-serif text-sm uppercase tracking-widest text-ink/50">
+                      {excerpt.title}
+                    </p>
+                  )}
+                  <p class="whitespace-pre-line font-display text-xl italic leading-relaxed text-ink/90">
+                    {excerpt.text}
+                  </p>
                 </blockquote>
               ))}
             </div>
