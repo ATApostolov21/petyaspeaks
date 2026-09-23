@@ -8,6 +8,10 @@ import { projectId, dataset, apiVersion } from './sanity/env';
 
 // https://astro.build/config
 export default defineConfig({
+  // Canonical origin — needed to build absolute URLs (og:image, og:url)
+  // since social-preview crawlers (Facebook, Twitter/X, iMessage, etc.)
+  // require a full URL, not a root-relative path.
+  site: 'https://www.petyaspeaks.art',
   // Stays static by default — only routes that opt out with
   // `export const prerender = false` (the Stripe checkout/webhook
   // endpoints) render on demand. Every existing page is unaffected.

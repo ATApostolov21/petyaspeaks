@@ -5,12 +5,19 @@ import "../styles/global.css";
 interface Props {
   title: string;
   description?: string;
+  /** Root-relative path to a social-preview image; resolved to an
+   *  absolute URL below since og:image/twitter:image require one. */
+  image?: string;
 }
 
 const {
   title,
   description = "Петя — поезия и проза. Личен литературен сайт на авторката.",
+  image = "/media/wave-circle-poster.jpg",
 } = Astro.props;
+
+const absoluteImageUrl = new URL(image, Astro.site);
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <!doctype html>
@@ -23,6 +30,14 @@ const {
     <meta property="og:title" content={`${title} · Petya Speaks`} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={absoluteImageUrl} />
+    <meta property="og:image:width" content="1440" />
+    <meta property="og:image:height" content="1440" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={`${title} · Petya Speaks`} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={absoluteImageUrl} />
     <title>{title} · Petya Speaks</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
