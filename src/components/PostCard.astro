@@ -8,11 +8,20 @@ interface Props {
 
 const { post, class: className = "" } = Astro.props;
 const color = categoryColors[post.category];
-const hoverStyle = `--hover-from: var(${color.hoverFrom}); --hover-to: var(${color.hoverTo});`;
 ---
 
 <article class:list={["group reveal", className]}>
-  <a href={`/blog/${post.slug}`} class="hover-card -m-6 block p-6" style={hoverStyle}>
+  {
+    /*
+      No --hover-from/--hover-to override here — this card defaults to the
+      site's wine hover (global.css's fallback) everywhere by default, e.g.
+      the homepage and the blog's "Всички" view. blog/index.astro overrides
+      those variables on this card's [data-category] wrapper, but only
+      while that category's own filter tab is selected — so a post only
+      hovers in its own color once you've actually filtered down to it.
+    */
+  }
+  <a href={`/blog/${post.slug}`} class="hover-card -m-6 block p-6">
     <p class:list={["hover-card-eyebrow mb-2 font-serif text-xs uppercase tracking-widest", color.text]}>
       {categoryLabels[post.category]} · {formatDate(post.publishedAt)}
     </p>

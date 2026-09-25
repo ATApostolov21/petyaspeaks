@@ -81,6 +81,23 @@ const posts = await getPosts();
     display: none;
   }
 
+  /* Cards hover in the site's wine accent by default (PostCard sets no
+     override) — only once a specific category tab is selected do that
+     category's own visible cards switch to its color. Left unset under
+     "Всички" (and everywhere with no filter at all, e.g. the homepage). */
+  .filter-group:has(#f-poem:checked) [data-category="poem"] {
+    --hover-from: var(--color-sea);
+    --hover-to: var(--color-sea-deep);
+  }
+  .filter-group:has(#f-essay:checked) [data-category="essay"] {
+    --hover-from: var(--color-forest);
+    --hover-to: var(--color-forest-hover);
+  }
+  .filter-group:has(#f-story:checked) [data-category="story"] {
+    --hover-from: var(--color-terracotta);
+    --hover-to: var(--color-terracotta-hover);
+  }
+
   .filter-group:has(#f-all:checked) label[for="f-all"] {
     border-color: var(--color-accent);
     color: var(--color-paper);
